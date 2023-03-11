@@ -99,3 +99,45 @@ Or its shorthand <> where react sees <>, it will insert the Fragment.
 
 Take Home:
 Fragments are a way to combine multiple HTML attributes into a react component.
+
+
+
+---4 - Rendering Lists:---
+So lets get started rendering some data!
+In JSX there is no such thing as for loops, so we have to do things a bit differently.
+
+Problem 1 - Convery Array to <li> items.
+using the map function, we can return the array like so.
+items.map((item) => <li>{item}</li>))
+
+
+Problem 2 - We cant just insert this block into our JSX.
+React wants to either call another react component or another HTML element.
+It does not know what to do with our JavaScript code in the middle of our JSX
+
+solution - parenthesis:
+Our code can execute inside a parenthesis block.
+return (
+    <>
+      <h1>List</h1>
+      <ul className="list-group">
+        {items.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+
+Problem 3 - no key property:
+If we look in the console, we can see a warning no key provided!
+React needs a unique key property to keep track of the elements, when we're getting data from an API
+we should have an ID property, or in this case the names are unique, we can use the names themselves.
+
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+
+note:
+We did remove the classname from the LI, to the styling wemt. Fear not, this will be covered later.
