@@ -1,8 +1,33 @@
 
----introduction:---
+---1 - introduction:---
 In this section you'll learn
 -building components
 -rendering markup with JSX
 -managing state
 -passing inupt via props
 -debugging react apps
+
+
+---2 - Creating a ListGroup Component:---
+
+
+Step 1 - Install Bootstrap
+npm install bootstrap@5.2.3
+
+Step 2 - Replace built in CSS
+app.css - delete the contents
+index.css - delete the file
+
+replace references to index.css to bootstrap
+import "bootstrap/dist/css/bootstrap.css";
+
+Step 3 - Create Component:
+-create components folder - by convention, put all reuseable components into their own folder.
+-create the ListGroup component (note with pascal case)
+-take some bootstrap markup
+
+Step 4 - modify app to use ListGroup Component:
+-remove message.tsx
+-update imports & usage in main.tsx
+
+Voila we have a basic component, we're going to add more interactivity in each lecture.
