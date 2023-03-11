@@ -141,3 +141,57 @@ we should have an ID property, or in this case the names are unique, we can use 
 
 note:
 We did remove the classname from the LI, to the styling wemt. Fear not, this will be covered later.
+
+
+
+---5 - Conditional Rendering:---
+So in order to dynamically show/hide things we have a couple approaches.
+
+
+Solution 1 - In JavaScript:
+So we can add some logic, then return the correct message as required.
+Problem with this solution is it leads to a lot of duplication.
+  if (items.length === 0) return;
+  <>
+    <h1>List</h1>
+    <p>No Items Found</p>
+  </>;
+
+
+solution 2 - In our JSX:
+We can use ternary operators inside the JSX to show a section or render null
+  <>
+    <h1>List</h1>
+    {items.length === 0 ? <p>No Items Found</p> : null}
+    <ul className="list-group">
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  </>;
+}
+
+
+Solution 3 - Extracting Message to a Variable or function:
+So when Conditionally rendering, we can use a constant for something simple.
+  const message = items.length === 0 ? <p>No Items Found</p> : null;
+
+Or for something more fancy we can use a function, because functions can take in parameters...
+  const getMessage = () => {
+    return items.length === 0 ? <p>No Items Found</p> : null;
+  };
+
+
+Code Optimization:
+So the ternary operator with null is kind of nasty, we can abuse some comparison operators to achieve the same
+results in less code.
+
+combining a boolean value && a value, returns the value.
+true && 1 - returns 1
+
+So for us
+items.length === 0 && <p> NO DATA!</p>
+
+if its true, we get the resulting paragraph text.
+
+This is REACT DEVELOPER TOP TIP. ABUSING operators.
