@@ -195,3 +195,45 @@ items.length === 0 && <p> NO DATA!</p>
 if its true, we get the resulting paragraph text.
 
 This is REACT DEVELOPER TOP TIP. ABUSING operators.
+
+
+
+---6 - Handling Events:---
+So to add click events to a list element we simply use the onClick function.
+
+Simple  OnClick:
+ onClick={() => console.log("clicked ")}
+
+
+OnClick with Variables:
+While we are inside the map function, we have access to the item, and a few other things like the index.
+ onClick={() => console.log("clicked - ", item, " @", index)}
+
+
+OnClick with Browser Event:
+We can pass in parameters from the browser, including the event.
+  onClick={(event) => console.log("clicked - ", event)}
+
+
+SyntheticBaseEvent:
+So after logging that event we get something new, a SyntheticBaseEvent object.
+This is the react teams implementation of a base event, because each Browser is going to have their own
+version, it helps to have a generic version that is cross compatible.
+A wrapper on native browser event.
+
+
+
+Adding More Complex Logic:
+Our current implementation is fine, but if gets any bigger we need to extract to its own function.
+-by convention we call is handleX
+-What type is the event? a ReactMouseEvent
+-note when we use the function in onClick, we're not calling it. We're passing a referce to a function, that onClick
+ will call.
+
+Function:
+We use an event handler for more complex logic.
+  const handleClick = (event: MouseEvent) => console.log("clicked - ", event);
+
+
+Usage:
+    <li className="list-group-item" key={item} onClick={handleClick}>
