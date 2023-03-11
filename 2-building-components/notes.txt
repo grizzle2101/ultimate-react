@@ -237,3 +237,76 @@ We use an event handler for more complex logic.
 
 Usage:
     <li className="list-group-item" key={item} onClick={handleClick}>
+
+
+
+---7 - Managing State:---
+So the next thing is to highlight the item on selection.
+So using bootstrap we can easily highlight a selected item using 'active', the problem is we need to
+dynamically assign this.
+
+
+Task 1 - Store Index:
+  let selectedIndex = 0;
+
+Task 2 - dynamically assign className:
+We can use the same approach as before to conditionally assign a class.
+ <li
+            className={
+              selectedIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={item}
+            onClick={() => (selectedIndex = index)}
+          >
+            {item}
+  </li>
+
+Task 3 - Update Index:
+onClick={() => (selectedIndex = index)}
+
+
+Problem:
+So our index is not being updated, turns out our Variable are scoped locally, and not in the JSX.
+We need to use some built in state management to manage this.
+
+Note:
+Using React we never have to think about updating the DOM, we think about updating the components that have state.
+React will automatically update the DOM to reflect the new state.
+
+Task 4 - useState Hook:
+So we need to introduce our first hook, to store & update the selected index.
+
+How it works:
+let arr = useState(-1);
+arr[0] - Variable
+arr[1] - updated function.
+
+Note:
+Rather than using it as an Array, we can simplfy it with destructuring.
+We now break the state object into a value & function.
+
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  or
+  const [name, setName] = useState('');
+
+
+Task 5 - Modify State:
+ onClick={() => {
+              setSelectedIndex(index);
+
+
+
+Take Home:
+This is how we tell react we have state thats going to change over time.
+-ternary operator - if index === selectedIndex
+-useState - variable & function to store the index
+-call setSelectedIndex function in the OnClick function
+
+And Boom we have connected a state hook to a click event in our first component!
+
+
+Another Take Home:
+IF we create 2 list group items, they are each going to have their OWN state variables.
+State is unique to a component instance.
