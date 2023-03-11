@@ -31,3 +31,71 @@ Step 4 - modify app to use ListGroup Component:
 -update imports & usage in main.tsx
 
 Voila we have a basic component, we're going to add more interactivity in each lecture.
+
+
+
+---3 - Fragments:---
+In react, a component can not return more than 1 element.
+
+So for us to add a heading into the list group, we get a compilation error.
+    <h1>Test<h1/>
+    <ul className="list-group">
+      <li className="list-group-item">An item</li>
+      <li className="list-group-item">A second item</li>
+      <li className="list-group-item">A third item</li>
+      <li className="list-group-item">A fourth item</li>
+      <li className="list-group-item">And a fifth one</li>
+    </ul>
+
+React under the hood is trying
+Reace.createElement('h1') but we're providing multiple elements instead.
+
+Workarounds:
+One workaround is to encapsulate everything in one div like so
+<div>
+    <h1><h1/>
+    <ul className="list-group">
+      <li className="list-group-item">An item</li>
+      <li className="list-group-item">A second item</li>
+      <li className="list-group-item">A third item</li>
+      <li className="list-group-item">A fourth item</li>
+      <li className="list-group-item">And a fifth one</li>
+    </ul>
+</div>
+
+This works, however we're creating HTML just to get around react requirements, this is really not the correct way.
+Fragments to the rescue.
+
+
+Version 1:
+
+    <Fragment>
+    <h1>List</h1>
+    <ul className="list-group">
+      <li className="list-group-item">An item</li>
+      <li className="list-group-item">A second item</li>
+      <li className="list-group-item">A third item</li>
+      <li className="list-group-item">A fourth item</li>
+      <li className="list-group-item">And a fifth one</li>
+    </ul>
+    </Fragment>
+  );
+
+Or its shorthand <> where react sees <>, it will insert the Fragment.
+
+ return (
+    <>
+      <h1>List</h1>
+      <ul className="list-group">
+        <li className="list-group-item">An item</li>
+        <li className="list-group-item">A second item</li>
+        <li className="list-group-item">A third item</li>
+        <li className="list-group-item">A fourth item</li>
+        <li className="list-group-item">And a fifth one</li>
+      </ul>
+    </>
+  );
+
+
+Take Home:
+Fragments are a way to combine multiple HTML attributes into a react component.
