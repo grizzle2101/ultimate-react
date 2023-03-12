@@ -352,3 +352,56 @@ Then our code can just call items.length like before.
 
 Take Home:
 So the take home is, we use PROPS to pass data to a component.
+
+
+
+---9 - Passing Functions via Props:---
+So usually something should happen after we click on the city.
+We need to figure out how to pass a function to the child component.
+
+
+Step 1 - Update interface:
+we start by adding a function to our props, takes in an item & returns void.
+
+interface Props {
+  items: string[];
+  heading: string;
+  onSelectItem: (item: string) => void;
+}
+
+
+
+Step 2 - Update APP:
+So we got some compilation errors, typescript knows we didnt provide the new function.
+Define a function that logs the item.
+  const handleSelectItem = (item: string) => {
+    console.log("item - ", item);
+  };
+
+Then pass the function in the ListGroup invokation here.
+  return (
+    <div>
+      <ListGroup
+        onSelectItem={handleSelectItem}
+        items={items}
+        heading="Cities"
+      />
+    </div>
+  );
+
+
+Step 3 - Call Function inside Component:
+So firstly we need to update the object destructuring to include the new function.
+
+function ListGroup({ items, heading, onSelectItem }: Props) {
+
+Then simply call the onSelectItem function when click is triggered.
+ onClick={() => {
+              setSelectedIndex(index);
+              onSelectItem(item);
+            }}
+
+
+
+Take Home:
+Adding a function is as easy as adding a function to props, updating the parent & calling in the child.
