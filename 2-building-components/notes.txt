@@ -405,3 +405,25 @@ Then simply call the onSelectItem function when click is triggered.
 
 Take Home:
 Adding a function is as easy as adding a function to props, updating the parent & calling in the child.
+
+
+
+---10 - State V Props:---
+So lets go over the similarities & differences between state & props:
+
+
+Props:
+-Input passed to a component (similar to function arguments)
+-immutable - eg unchangeable (read only)
+-cause a re-render
+
+
+State:
+-Internal data management by a component
+-mutable - should be changing
+-cause a re-render
+
+
+Take home:
+Both changes causes a re-render, props is for input & should never change, where as state is internal to a component
+and is expected to change.
