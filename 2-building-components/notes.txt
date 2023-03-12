@@ -527,3 +527,52 @@ interface Props {
 
 If we set the value to anything other than our string literals we get a compilation error.
       <Button color='WEEE' onClick={onClick}>
+
+
+
+---Excercise 2 - Alert Component:---
+So we want to carry on from the last excercise and render an alert when the button is clicked.
+
+
+Step 1 - Store state:
+show alert will toggle the alert component. Set initially to false.
+  const [showAlert, setShowAlert] = useState(false);
+
+
+Step 2 - dynamically render alert:
+We use the comparison operator hack to return Alert or not.
+      {showAlert && <Alert> Button was clicked! </Alert>}
+
+
+Step 3 - update state onClick:
+So we modify the onClick function to change the alert state & voila!
+ <Button color={color} onClick={() => setShowAlert(!showAlert)}>
+          Raise Alert
+        </Button>
+
+
+Step 4 - Add the Close Method:
+So in the alert we add a close button, which clicks a function we pass in through the props.
+
+<div className="alert alert-primary alert-dismissible">{children}</div>
+        <button
+          type="button"
+          className="close"
+          data-dismiss="alert"
+          aria-label="Close"
+          onClick={onClose}
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+Then in the App.tsc we pass in the function, that updates the state we're using the show/hide the alert.
+<Alert onClose={() => setShowAlert(false)}> Button was clicked! </Alert>
+
+So all in all my solution was very similar, i was lazy and just added 1 button that toggles & closes in one,
+but the lessons are the same.
+-props to share data (remember immutable, never change!)
+-state hook to show/hide components (state changes & is internal)
+-fragments to allow multiple elements on one component.
+-functions as comopnents the convention!
