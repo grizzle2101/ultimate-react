@@ -427,3 +427,67 @@ State:
 Take home:
 Both changes causes a re-render, props is for input & should never change, where as state is internal to a component
 and is expected to change.
+
+
+
+---11 - Passing Children:---
+So there are times we want to pass a child component, like passing out listgroup to the div element.
+
+
+Step 1 - Create a new Component:
+
+interface Props {
+  text: string;
+}
+
+const Alert = ({ text }: Props) => {
+  return <div className="alert alert-primary">{text}</div>;
+};
+
+export default Alert;
+
+
+Step 2 - Use Component:
+So if we modify the App component, we can pass in the text like so.
+function App() {
+  return (
+    <div>
+      <Alert text="Hello World" />
+    </div>
+  );
+}
+
+Problem:
+So normally when writing HTML, we want to wrap out markup like this
+<Alert> This is my alert </Alert> 
+How do we do that?
+
+
+Solution - use the Children Property:
+Every props has a property called CHILDREN, this is what we use to apprend children to our components.
+interface Props {
+  children: string;
+}
+
+const Alert = ({ children }: Props) => {
+  return <div className="alert alert-primary">{children}</div>;
+};
+
+
+What if we add Markup?
+We get a compilation error if we add HTML. This is because our props is expecting a string.
+      <Alert><h1>This is my alert</h1></Alert>
+
+Solution - ReactNode:
+So our problem is React expects a string, and we gave markup.
+To allow this to work, we cast the input as ReactNode.
+
+interface Props {
+  children: ReactNode;
+}
+
+
+
+Take Home:
+Use Children property as ReactNode type, to pass child components.
+Then use children to render the child components insdie our JSX.
