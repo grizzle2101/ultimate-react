@@ -491,3 +491,15 @@ interface Props {
 Take Home:
 Use Children property as ReactNode type, to pass child components.
 Then use children to render the child components insdie our JSX.
+
+
+---12 - Inspecting Components:---
+So for help debugging & working with react apps, there is a chrome extension called react dev tools.
+Make sure to install it as part of any development setup.
+
+
+Features:
+-component hierarchy
+-view props
+-inspect DOM element for a given component
+-view source & source code for component
