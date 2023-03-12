@@ -310,3 +310,45 @@ And Boom we have connected a state hook to a click event in our first component!
 Another Take Home:
 IF we create 2 list group items, they are each going to have their OWN state variables.
 State is unique to a component instance.
+
+
+---8 - Passing Data via Props:---
+What if we want to show a list of names? we don't want to create a whole new component.
+Props or properties are the input to our components
+
+
+Step 1 - define interface:
+Define the shape of the object we want to pass in.
+interface Props {
+  items: string[];
+  heading: string;
+}
+
+Step 2 - update the function:
+
+function ListGroup(props: Props) {
+
+
+Step 3 - Pass data to child component:
+So we move items to the APP file, and pass in the data like HTML attributes.
+  var items = ["New York", "San Fransico", "Tokyo", "London", "Paris"];
+
+
+  return (
+    <div>
+      <ListGroup items={items} heading="Cities" />
+    </div>
+  );
+
+
+Step 4 - Use passed in values:
+So we can access the value using props.items, but a cleaner way is to destructure props like so.
+function ListGroup({ items, heading }: Props)
+
+Then our code can just call items.length like before.
+ <h1>{heading}</h1>
+      {items.length === 0 && <p>No Items Found</p>}
+
+
+Take Home:
+So the take home is, we use PROPS to pass data to a component.
