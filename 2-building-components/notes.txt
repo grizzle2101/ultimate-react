@@ -503,3 +503,27 @@ Features:
 -view props
 -inspect DOM element for a given component
 -view source & source code for component
+
+
+---Excercise 1 - Creating a Button:---
+Take everything we've done so far and create a bootstrap button component.
+
+
+Tasks:
+-create simple button
+-pass text
+-click event
+-pass color
+-error handling - invalid color
+
+
+Tip from Mosh:
+We can use string literals to tell the typescript compiler what values we accept.
+interface Props {
+  children: ReactNode;
+  color?: "primary" | "secondary" | "danger";
+  onClick: () => void;
+}
+
+If we set the value to anything other than our string literals we get a compilation error.
+      <Button color='WEEE' onClick={onClick}>
