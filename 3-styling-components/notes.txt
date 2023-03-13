@@ -6,3 +6,56 @@ In this section we'll look at various methods for styling our components.
 -css modules
 -css in JS
 -using css libraries
+
+
+---2 - Vanilla CSS:---
+So vanilla css is not something we should do all too often, its time consuming & tedious.
+But incase you ever need to, lets show you how its done.
+
+
+Step 1 - remove bootstrap:
+remove the import from main.tsx
+import "bootstrap/dist/css/bootstrap.css";
+
+
+step 2 - create css file.
+create ListGroup.css in the same location as the ListGroup compoent.
+
+Note:
+Should styles be kept seperately? No. We want to achieve cohesion, so related things should be kept togther.
+
+
+Step 3 - import:
+import "./ListGroup.css"; add the style import into the ListGroup.tsc file.
+
+
+Top Tip:
+To avoid messy imports of multiple items associated with the ListGroup we can create an index file.
+This is like a table of contents for everything ListGroup related.
+
+created index file:
+2 lines of code in the index file.
+
+import ListGroup from "./ListGroup";
+export default ListGroup;
+
+
+Then look at the cleaner imports
+import ListGroup from ".components/ListGroup/ListGroup";
+to
+import ListGroup from "./components/ListGroup";
+
+By default, if we do not provide a file, the typescript compiler looks for index.ts, which tells us which file is
+the default import.
+
+
+
+Sidenote:
+We also updated the git ignore to avoid the huge node_modules
+note - git ignore node modules
+
+
+TakeHome:
+To use vanilla CSS, add a CSS file with the component.
+Import the CSS in into the TSX file
+Simple as.
