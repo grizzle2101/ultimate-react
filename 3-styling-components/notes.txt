@@ -1,0 +1,8 @@
+---Styling Components:---
+---1 - introduction:---
+In this section we'll look at various methods for styling our components.
+
+-vanilla css
+-css modules
+-css in JS
+-using css libraries
