@@ -59,3 +59,57 @@ TakeHome:
 To use vanilla CSS, add a CSS file with the component.
 Import the CSS in into the TSX file
 Simple as.
+
+
+---3 - CSS Modules:---
+The problem with Vanilla CSS is when we have dupliactes of the same class name, we're going to have clashes!
+
+
+Problem:
+So if we add some styling into our global css, and have something different in the listgroup component.
+.list-group {
+  background: red;
+}
+
+We can see this causes a clash.
+
+Solution:
+CSS Modules allow us to scope these class locally!
+
+
+Step 1 - rename listgroup to ListGroup.module.css
+
+
+Step 2 - import like a javascript object
+import styles from "./ListGroup.module.css";
+
+note:
+styles is the oject, list-group class will be a property.
+
+
+
+Step 3 - Usage:
+So after the import we can access the styles object.
+One note is that we cannot use a hyphen, so we dot notation wont work, we have use square brackets.
+    <ul className={styles["list-group"]}>
+
+OR
+using camel notation
+  <ul className={styles.listGroup}>
+
+
+Under the hood:
+If we inspect the Cities, we can see we get list-group-xyzb
+This is how vite bundles our CSS module & assigns a unique ID to the class so there will never be a clash.
+
+So instead we use CAMEL NOTATION when using CSS bundles.
+
+.listGroup {
+  list-style: none;
+  padding: 0;
+}
+
+
+How to add multiple classes?
+So we have an array of objects, then join them with spaces to achieve the desired result.
+      <ul className={[styles.listGroup, styles.container].join(" ")}>
