@@ -113,3 +113,132 @@ So instead we use CAMEL NOTATION when using CSS bundles.
 How to add multiple classes?
 So we have an array of objects, then join them with spaces to achieve the desired result.
       <ul className={[styles.listGroup, styles.container].join(" ")}>
+
+
+
+---4 - CSS in JS:---
+So another controversial technique is CSS in JS, some like it some aboslutely hate it.
+We write the CSS classes directly in our javascript/typescript file.
+
+Benefits:
+-scoped styles (just like modules)
+-all CSS & JS/TS  code in one place
+-easier to delete a component (without knock on to others using that CSS)
+-easier to style based on props/state
+
+Some common libraries that use this approach are:
+-styled Components
+-emotion
+-polished
+etc
+
+
+lets check out styled components.
+
+Step 1 - install it:
+npm install styled-components
+
+
+Note:
+after installing styled-compoents we're getting an error on the import.
+The compiler does not know what type of objects are defined in this library.
+fix - install type definitions
+npm install @types/styled-components
+
+
+Step 2 - Define the Style:
+Styled has properties for almost every HTML attribute.
+What we do is we create a react component, specify the style in-line here, then use the component.
+const List = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+
+
+Step 3 - Use:
+So where we previously used <UL> we now use the newly created react component LIST.
+      <List>
+        {items.map((item, index) => (
+          <ListItem
+            className={
+              selectedIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={item}
+            onClick={() => {
+              setSelectedIndex(index);
+              onSelectItem(item);
+            }}
+          >
+            {item}
+          </ListItem>
+        ))}
+      </List>
+
+  
+
+Take Home:
+So after doing this excercise we can hopefully see the benefits of CSS-in-JS.
+Our markup is now only structure & logic for our components, we've extracted any style elements out.
+And it tomorrow we dont want this, we can just delete this file without fear of knock on effects.
+
+
+
+Styling based on props/state:
+So say we want to remove all the conditional logic here for active items. styled-components make this
+much easier.
+<ListItem
+            className={
+              selectedIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={item}
+            onClick={() => {
+              setSelectedIndex(index);
+              onSelectItem(item);
+            }}
+          >
+          
+Step 1 - Set Active property on ListItem:
+<ListItem
+            active={index === selectedIndex}
+
+Step 2 - Then Modify our state, to trigged the action.
+  const [selectedIndex, setSelectedIndex] = useState(2);
+
+
+Step 3 - define props:
+So we have a compilation error, compiler does not know this property active, we need to add it.
+Create the interface.
+interface ListItemProps {
+  active: boolean;
+}
+
+
+Step 4 - Pass Props to styled comopnent:
+Takes a generic type, in our case the ListItem props.
+const ListItem = styled.li<ListItemProps>`
+
+
+Then we can use template literals to assign blue or none depending on props.
+const ListItem = styled.li<ListItemProps>`
+  padding: 5px 0;
+  background: ${(props) => (props.active ? "blue" : "none")};
+`;
+
+
+Finally:
+If the selectedItem(2) is there, should return blue!
+
+
+Take Home:
+styled-components let us deine CSS as javascript/typescript.
+-We use styled.<HTML-component> to create a react like comopnent.
+-we add the styling in line
+-we replace HTML in the compoent with our newly created/styled component.
+-we can add props to allow for easy conditionl styling.
+-finally we can delete the code without fear of knock on.
+-every bit of logic for the component is contained in one file, handy!
