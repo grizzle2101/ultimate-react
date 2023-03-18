@@ -242,3 +242,28 @@ styled-components let us deine CSS as javascript/typescript.
 -we can add props to allow for easy conditionl styling.
 -finally we can delete the code without fear of knock on.
 -every bit of logic for the component is contained in one file, handy!
+
+
+
+
+---5 - Seperation of Concerns:---
+An important design principle in software design is seperation on concerns.
+
+Seperation of Concern definition:
+Divide a program into distinct sections where each section handles a specific functionality, rather than everything
+in one place.
+
+If we use this principle our code will be.
+-more modular
+-easier to understand
+-easier to maintain
+-easier to Modify
+
+We can also test & build this modules indepently.
+The complexity of our code should be hidden behind a well defined interface.
+
+
+Some say CSS in JS violates this principle by having everything in one file. (styles, markup & logic),
+however others say it doesn't becuase we do indeed have a well defined interface, our ListGroupItem has an interface,
+the consumer (the list group) just uses active, and the complexity is indeed hidden.
+So this is why CSS in JS is controversial, a differing opinion.
