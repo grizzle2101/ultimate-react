@@ -277,3 +277,30 @@ note that its camel case, not like regular css background-color.
 
 Example:
       <ul className="list-group" style={{ backgroundColor: "green" }}>
+
+
+  
+---7 - Popular UI libraries:---
+
+-bootstrap - east
+-material UI - react component library, in the google design language
+-tailswind css - utility first CSS library, doesn't give us full components but small functions.
+
+
+Utility Class examples:
+Say we want to add the css to remove the list styling, rather than creating the class we use the built in tailswind
+ones to achieve the same results
+
+-list-group or list-none (tailwind version)
+-p-0 - add 0 padding to a section
+
+Downside:
+As we begin to add more utility classes to our HTML, it starts to look a bit nasty.
+There are frameworks that seek to minimize the bloat like
+-daisyUI
+-chakraUI
+
+DaisyUI looks much like bootstrap, but has all the essential components e.g.
+alert alert-warning 
+
+going forward, we will be using chakraUI to build the project for this course.
