@@ -340,3 +340,19 @@ We previously removed bootstrap, so we'll have to create our own style from scra
 -update the color logic to use new CSS module
 -DOT notation to return conditional array of classes
  className={[styles.btn, styles["btn-" + color]].join(" ")}
+
+
+
+ ---10 - Excercise 2:---
+ Lets build a like compoent from scratch!
+ For the interface we want an onClick function
+
+
+ -create file & return basic component.
+ -add the icon from react icons
+ -create props to pass in a function from outside
+ -store the state isSelected locally in the component
+ -trigger the function passed in & update state at the same time
+ -add conditional logic to toggle color based on state
+
+ & DONE, good refresher on how to create components & props/state.
