@@ -267,3 +267,13 @@ Some say CSS in JS violates this principle by having everything in one file. (st
 however others say it doesn't becuase we do indeed have a well defined interface, our ListGroupItem has an interface,
 the consumer (the list group) just uses active, and the complexity is indeed hidden.
 So this is why CSS in JS is controversial, a differing opinion.
+
+
+---6 - Inline Styles:---
+So inline styling is not something we want to go into in detail, because its really a bad practice.
+But if you ever have to, its just a matter of adding the style property, then using {{}} to insert the CSS.
+note that its camel case, not like regular css background-color.
+
+
+Example:
+      <ul className="list-group" style={{ backgroundColor: "green" }}>
