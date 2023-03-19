@@ -328,3 +328,15 @@ They are literally react components, use like so.
       <BsFillCalendarCheckFill color="red" size="40"></BsFillCalendarCheckFill>
 
 
+
+---9 - Excercise 1:---
+So in this excercise we want to style the button component.
+We previously removed bootstrap, so we'll have to create our own style from scratch.
+
+
+-create the CSS module file
+-create the primary, secondary & danger styling
+-import the module (AS javascript) styles.btn etc
+-update the color logic to use new CSS module
+-DOT notation to return conditional array of classes
+ className={[styles.btn, styles["btn-" + color]].join(" ")}

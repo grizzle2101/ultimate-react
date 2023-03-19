@@ -1,6 +1,6 @@
 import ListGroup from "./components/ListGroup";
 import "./App.css";
-import { BsFillCalendarCheckFill } from "react-icons/bs";
+import Button from "./components/Button/Button";
 
 function App() {
   var items = ["New York", "San Fransico", "Tokyo", "London", "Paris"];
@@ -8,9 +8,24 @@ function App() {
     console.log("item - ", item);
   };
 
+  const dummyOnClick = () => {
+    console.log("Do Nothing.");
+  };
+
   return (
     <div>
-      <BsFillCalendarCheckFill color="red" size="40"></BsFillCalendarCheckFill>
+      <Button color="primary" onClick={dummyOnClick}>
+        {" "}
+        Primary
+      </Button>
+      <Button color="secondary" onClick={dummyOnClick}>
+        {" "}
+        Secondary
+      </Button>
+      <Button color="danger" onClick={dummyOnClick}>
+        {" "}
+        Danger
+      </Button>
       <ListGroup
         onSelectItem={handleSelectItem}
         items={items}
