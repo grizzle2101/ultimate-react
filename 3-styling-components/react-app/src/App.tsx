@@ -1,8 +1,6 @@
-import { useState } from "react";
-import Alert from "./components/Alert";
-import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
 import "./App.css";
+import { BsFillCalendarCheckFill } from "react-icons/bs";
 
 function App() {
   var items = ["New York", "San Fransico", "Tokyo", "London", "Paris"];
@@ -12,6 +10,7 @@ function App() {
 
   return (
     <div>
+      <BsFillCalendarCheckFill color="red" size="40"></BsFillCalendarCheckFill>
       <ListGroup
         onSelectItem={handleSelectItem}
         items={items}

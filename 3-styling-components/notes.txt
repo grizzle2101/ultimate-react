@@ -304,3 +304,27 @@ DaisyUI looks much like bootstrap, but has all the essential components e.g.
 alert alert-warning 
 
 going forward, we will be using chakraUI to build the project for this course.
+
+
+
+---8 - Adding Icons:---
+So we use react-icons to get access to a whole host of icon packs.
+Each section is seperated with an abbreviation for the library it comes from like BS for bootstrap.
+To get started we install the package, import the specific icon & use like react components.
+
+checkout:
+https://react-icons.github.io/react-icons/icons?name=bs
+
+step 1 - install:
+npm install react-icons@4.7.1
+
+
+Step 2 - import & Use:
+click on the desired icon to copy the name. note to import the correct theme eg bootstrap.
+import { BsFillCalendarCheckFill } from "react-icons/bs";
+
+Usage:
+They are literally react components, use like so.
+      <BsFillCalendarCheckFill color="red" size="40"></BsFillCalendarCheckFill>
+
+
