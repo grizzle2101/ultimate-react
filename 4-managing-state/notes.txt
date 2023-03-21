@@ -1,0 +1,6 @@
+---Section 5 - Managing State:---
+
+---1 - Introduction:---
+State managment is a fundamental concept in react.
+So in this section we're going to take a deep dive into how component state is stored & updated.
+This is crucial for building complex applications.
