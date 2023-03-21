@@ -64,3 +64,38 @@ Take Home:
 -react updates are async.
 -state is stored outside
 -hooks should only be in the top level of our components
+
+
+
+
+---3 - Choosing the state structure:---
+So when adding state to a component, its important to look at the strucure of the data.
+
+Cases where we have similar data can be simplified
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [isLoading, setLoading] = useState(false);
+
+
+TO:
+const [person, setPerson] = useState({firstName, lastName});
+const [isLoading, setLoading] = useState(false);
+
+
+
+The important take home from this section is to avoid deeply nested data structures, as we'll soon find out, its very
+difficult to update.
+  const [person, setPerson] = useState({
+    firstName,
+    lastName,
+    address: {
+      street: {},
+    },
+  });
+
+
+
+  Best Practies:
+  -avoid redundant state variables
+  -group related variables
+  -avoid nested structures

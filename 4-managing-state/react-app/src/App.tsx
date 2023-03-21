@@ -3,12 +3,14 @@ import "./App.css";
 
 function App() {
   //state
-  const [isVisible, setVisability] = useState(false);
-  const [isApproved, setApproved] = useState(true);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const [person, setPerson] = useState({ firstName, lastName });
+  const [isLoading, setLoading] = useState(false);
 
   const dummyOnClick = () => {
-    setVisability(true);
-    console.log("Visability - ", isVisible);
+    console.log("Visability - ");
   };
 
   return (
