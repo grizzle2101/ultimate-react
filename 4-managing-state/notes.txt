@@ -4,3 +4,63 @@
 State managment is a fundamental concept in react.
 So in this section we're going to take a deep dive into how component state is stored & updated.
 This is crucial for building complex applications.
+
+
+
+---2 - Understanding the state hook:---
+So far we've learned we can use the state hook to add state to a component. A few things you probably didnt know..
+
+1 - react updates state ascynchously (not immediately!)
+
+
+Test Scenario:
+If we create a button that updated the isVisible property, and log it directly after updating the value.
+We STILL see the old value.
+
+  const [isVisible, setVisability] = useState(false);
+
+  const dummyOnClick = () => {
+    setVisability(true);
+    console.log("Visability - ", isVisible);
+  };
+
+
+This is done for performance reasons, in the real world we're going to be updating a lot of data.
+So react batches them all togther and does less re-renders.
+
+
+2 - State is stored outside of components
+
+so we know in javascript variables are scoped locally. If we increment the count and the component re-renders,
+we lose the update.
+This is the whole reason we store items in scope, outside of the component!
+
+function App() {
+  const [isVisible, setVisability] = useState(false);
+  let count = 0;
+
+  const dummyOnClick = () => {
+    setVisability(true);
+    count++;
+    console.log("Visability - ", isVisible);
+  };
+
+
+3 - use hooks at the top level of your component
+
+The way react stores state means we have to be careful how we order our hooks.
+
+  const [isVisible, setVisability] = useState(false);
+  const [isApproved, setApproved] = useState(true);
+
+The result of these stateHooks will be an array [false, true], which then gets reloaded into the react components
+when they re-render.
+If we mess up this order by putting them in conditional or nested blocks, we'll state to see the wrong state values
+being given.
+
+
+
+Take Home:
+-react updates are async.
+-state is stored outside
+-hooks should only be in the top level of our components

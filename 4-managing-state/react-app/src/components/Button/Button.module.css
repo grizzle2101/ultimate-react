@@ -1,0 +1,15 @@
+.btn {
+  width: 100px;
+}
+
+.btn-primary {
+  color: red;
+}
+
+.btn-secondary {
+  color: blue;
+}
+
+.btn-danger {
+  color: yellow;
+}
