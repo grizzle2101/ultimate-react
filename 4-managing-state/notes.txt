@@ -180,3 +180,53 @@ If we add a console log to the component, we can see this more clearly, 2 logs b
 note - this is only used in development mode, when we build for production strict mode is removed.
 But for now in react 18, strict mode is there by default!
 
+
+---6 - update objects:---
+We want to create a button that increments the count, where do we store this?
+Answer is NOT IN THE COMPONENT.
+
+So lets take this Example, we have a drink state variables, we update it on click.
+But what gives, no updates?
+
+function App() {
+  const [drink, setDrink] = useState({
+    title: "Americano",
+    price: 5,
+  });
+
+  const handleClick = () => {
+    drink.price = 6;
+    setDrink(drink);
+  };
+
+  return (
+    <div>
+      {drink.price}
+      <Button onClick={handleClick}>Test Button</Button>
+    </div>
+  );
+}
+
+Solution:
+We have to give react a new state object.
+Like so, we create a newDrink & pass that, boom updates!
+
+  const handleClick = () => {
+    const newDrink = { title: drink.title, price: 6 };
+    setDrink(newDrink);
+  };
+
+
+NOTE:
+We should treat state as immutable, and instead of changing it we should re-initalize.
+
+
+Top Tip:
+Doing these updates to objects would be awfully painful when we just want to change something small.
+Using the spread operator, we can make our life a bit easier.
+
+  const handleClick = () => {
+    setDrink({ ...drink, price: drink.price + 1 });
+  };
+
+Thats how you update state, from outside! with a new re-iniatilzed value!
