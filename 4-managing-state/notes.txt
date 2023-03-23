@@ -155,3 +155,28 @@ function Message({ children, count }: MessageProps) {
     </>
   );
 }
+
+
+---5 - Understanding STRICT Mode:---
+
+Previously we got 2, 4 & 6. Why was that? Its to do with strict mode in react.
+
+
+Strict Mode:
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+
+So in main.tsx we have 2 wrappers, reactDOM renders inside the browser, and another strict mode which is used to 
+check the compoents.
+So in development mode we actually render compoents twice, then react takes the last created instance to render.
+This explains 2, 4 & 6, 1, 3 & 5 were not even used!
+
+
+If we add a console log to the component, we can see this more clearly, 2 logs but only 1 comopnent shown!
+note - this is only used in development mode, when we build for production strict mode is removed.
+But for now in react 18, strict mode is there by default!
+
