@@ -1,21 +1,13 @@
 import { useState } from "react";
 import "./App.css";
+import Message from "./components/Message/Message";
 
 function App() {
-  //state
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-
-  const [person, setPerson] = useState({ firstName, lastName });
-  const [isLoading, setLoading] = useState(false);
-
-  const dummyOnClick = () => {
-    console.log("Visability - ");
-  };
-
   return (
     <div>
-      <button onClick={dummyOnClick}>Show</button>
+      <Message count={2}>Test</Message>
+      <Message count={2}>Test</Message>
+      <Message count={2}>Test</Message>
     </div>
   );
 }

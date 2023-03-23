@@ -99,3 +99,59 @@ difficult to update.
   -avoid redundant state variables
   -group related variables
   -avoid nested structures
+
+
+  ---4 - PURE:---
+A fundamental concept in react is purity, but what is it?
+
+pure function - given the same input, always returns the same result.
+const result = myFunc(1);
+// result 'b'
+
+if we get different results, at different times, we call this impure.
+
+React is designed around this concept, it expects every component we create to be a PURE function.
+
+props -> component -> JSX
+same props -> skip re-rendering
+
+Take Home:
+The take home is keep any changes out of the render phase!
+
+Example:
+So say we have a message item that increments a count.
+
+let countNumba = 0;
+
+function Message({ children, count }: MessageProps) {
+  countNumba++;
+  return (
+    <>
+      <h1>count - {countNumba}</h1>
+    </>
+  );
+}
+
+
+Then we use the message component several times, we see a different result for each one!
+This is the definition of an IMPURE function.
+    <div>
+      <Message count={2}>Test</Message>
+      <Message count={2}>Test</Message>
+      <Message count={2}>Test</Message>
+    </div>
+  
+
+Refactor:
+By simply moving the value down, its reset on each re-render.
+Therefore our component produces the same result for each usage, voila!
+
+function Message({ children, count }: MessageProps) {
+  let countNumba = 0;
+  countNumba++;
+  return (
+    <>
+      <h1>count - {countNumba}</h1>
+    </>
+  );
+}
