@@ -3,28 +3,27 @@ import "./App.css";
 import Button from "./components/Button/Button";
 
 function App() {
-  const [customer, setCustomer] = useState({
-    name: "John",
-    address: {
-      city: "San Fransisco",
-      zipCode: 94111,
-    },
-  });
+  const [tags, setTags] = useState(["happy", "cheerful"]);
 
   const handleClick = () => {
     //so say we want to update the address..
-    setCustomer({
-      ...customer,
-      address: { ...customer.address, zipCode: 1234 },
-    });
+    //setTags([tags.push('newOne')]);//tags.push - NO
 
-    //spread operator is shallow, so this will be problem as the address in memory will be given, not a copy.
-    //both will reference the same adddress object in memory, not good!
+    //Add
+    setTags([...tags, "newOne"]);
+
+    //remove
+    setTags(tags.filter((tag) => tag !== "happy"));
+
+    //update
+    //method 1 - copy array
+    //methood 2 - map
+    setTags(tags.map((tag) => (tag === "happy" ? "happiness" : tag)));
   };
 
   return (
     <div>
-      {JSON.stringify(customer)}
+      {JSON.stringify(tags)}
       <Button onClick={handleClick}>Test Button</Button>
     </div>
   );

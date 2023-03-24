@@ -264,3 +264,28 @@ This solution works, but is quite complex, so in future avoid nested structures.
 Take Home:
 When working with state objects, avoid deeply nested structures as it makes our job more difficult.
 Prefer flat structures.
+
+
+
+---7 - updating arrays:---
+The same concept applies for arrays, we should not change or mutate it.
+
+
+Task 1 - Adding:
+We could do Tags.push but we would be modifying an array and thats a no go!
+The better way is to copy the existing, add one and return as new object like so.
+
+    setTags([...tags, "newOne"]);
+
+
+Task 2 - Removing:
+use filter to remove, and return result as new array.
+    setTags(tags.filter((tag) => tag !== "happy"));
+
+Task 3 - Update existing Items:
+We have 2 methods for this.
+method 1 - copy array
+methood 2 - map
+
+Map returns a new array, so this works perfectly!
+    setTags(tags.map((tag) => (tag === "happy" ? "happiness" : tag)));
