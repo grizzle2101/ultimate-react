@@ -3,18 +3,28 @@ import "./App.css";
 import Button from "./components/Button/Button";
 
 function App() {
-  const [drink, setDrink] = useState({
-    title: "Americano",
-    price: 5,
+  const [customer, setCustomer] = useState({
+    name: "John",
+    address: {
+      city: "San Fransisco",
+      zipCode: 94111,
+    },
   });
 
   const handleClick = () => {
-    setDrink({ ...drink, price: drink.price + 1 });
+    //so say we want to update the address..
+    setCustomer({
+      ...customer,
+      address: { ...customer.address, zipCode: 1234 },
+    });
+
+    //spread operator is shallow, so this will be problem as the address in memory will be given, not a copy.
+    //both will reference the same adddress object in memory, not good!
   };
 
   return (
     <div>
-      {drink.price}
+      {JSON.stringify(customer)}
       <Button onClick={handleClick}>Test Button</Button>
     </div>
   );

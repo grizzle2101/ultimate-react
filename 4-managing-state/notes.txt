@@ -230,3 +230,37 @@ Using the spread operator, we can make our life a bit easier.
   };
 
 Thats how you update state, from outside! with a new re-iniatilzed value!
+
+
+
+---7 - updating nested objects:---
+Taking the same example from before, we want to update an object onClick, except this time out address
+is nested.
+
+
+
+Problem 1:
+...spread operator is shallow, meaning it does not copy the nested objects but instead returns a reference to it
+in memory.
+So this means the old & new version, will both reference the same object, not good!
+
+    setCustomer({
+      ...customer,
+      customer.address.zipCode: 1234,
+    });
+
+
+Solution:
+So we cant give a reference to the old object, we need to return as a new one.
+Setting the address: field, means we are newly assigning, spreading the existing address, but modifying the zipcode!
+
+    setCustomer({
+      ...customer,
+      address: { ...customer.address, zipCode: 1234 },
+    });
+
+This solution works, but is quite complex, so in future avoid nested structures.
+
+Take Home:
+When working with state objects, avoid deeply nested structures as it makes our job more difficult.
+Prefer flat structures.
