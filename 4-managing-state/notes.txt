@@ -267,7 +267,7 @@ Prefer flat structures.
 
 
 
----7 - updating arrays:---
+---8 - updating arrays:---
 The same concept applies for arrays, we should not change or mutate it.
 
 
@@ -289,3 +289,34 @@ methood 2 - map
 
 Map returns a new array, so this works perfectly!
     setTags(tags.map((tag) => (tag === "happy" ? "happiness" : tag)));
+
+
+
+---9 - Updating array of objects:---
+So say we have a list of bugs, and we want to set fixed to true, like we've just closed off a ticket.
+
+bug object with 3 properties
+  const [bugs, setBugs] = useState([
+    { id: 1, title: "bug 1", fixed: false },
+    { id: 2, title: "bug 2", fixed: false },
+  ]);
+
+find the bug using map operator, replace the item with a modified bug, or return bug as before.
+Again this returns a new array, so we are not mutating anything we shouldn't.
+
+  const handleClick = () => {
+    setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, fixed: true } : bug)));
+  };
+
+
+Old Array
+B1, B2
+
+New Array:
+B1*, B2 - * meaning updated.
+
+Take Home:
+We don't need to modify every element in the array to get react to update the dom to reflect the component.
+We only need 1 object to change to trigger the re-rendering.
+
+
