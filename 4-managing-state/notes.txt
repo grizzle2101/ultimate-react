@@ -320,3 +320,40 @@ We don't need to modify every element in the array to get react to update the do
 We only need 1 object to change to trigger the re-rendering.
 
 
+---10 - Simplfying Update logic with Immer:---
+So updating arrays & objects without mutation can be needlessly complex. A library called IMMER can help us with this.
+
+
+Task - Duplicate Fixing a Bug:
+import produce from "immer";
+
+note:
+draft is a proxy for the obect we want to update, it records the changes & returns a copy of our bugs.
+now that we're using draft, we can operate on the value like we normally do! no weird object management.
+
+Previous Code:
+   setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, fixed: true } : bug)));
+
+
+Refactored Version:
+  const handleClick = () => {
+    setBugs(
+      produce((draft) => {
+        const bug = draft.find((bug) => bug.id === 1);
+        if (bug) bug.fixed = true;
+      })
+    );
+  };
+
+Test:
+To test the results of our changes, add some markup to render the bugs & their state.
+
+      {bugs.map((bug) => (
+        <p key={bug.id}>
+          {bug.title} {bug.fixed ? "Fixed" : "New"}
+        </p>
+      ))}
+      
+
+Take Home:
+if you don't like manipulating immutable data, immer is your friend!
