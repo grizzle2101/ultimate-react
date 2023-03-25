@@ -357,3 +357,59 @@ To test the results of our changes, add some markup to render the bugs & their s
 
 Take Home:
 if you don't like manipulating immutable data, immer is your friend!
+
+
+
+---11 - Sharing State between components:---
+So in modern apps we're going to need to share state between components, think of a navbar & shopping cart.
+When we add or remove items we want them to be in sync.
+
+Component Hierarchy:
+
+      App
+      
+  NavBar  Cart
+
+
+
+Task 1 - Create NavBar Component:
+-take in itemCount as props
+
+
+Task 2 - Create Cart Coponent:
+-take in cartItems as string array
+-render list item for each cart item.
+-add a button to clear the shopping cart
+-take in a function to allow the parent to manage state.
+
+
+Nothing hard so far, lets try connect it all togther.
+
+Note:
+  The component that holds the state, is the one responsible for updating it.
+
+
+
+Task 3 - Bring it all togther:
+So on that note, we need to store state in the APP compoent, then pass in the count & items to the child components.
+We also pass a function to manipulate the state once clicked.
+
+function App() {
+  const [cartItems, setCartItems] = useState(["one", "two", "three"]);
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  return (
+    <>
+      <div>
+        <NavBar cartItemsCount={cartItems.length}></NavBar>
+        <Cart cartItems={cartItems} onClear={clearCart}></Cart>
+      </div>
+    </>
+  );
+}
+
+
+Voila we have 2 synced components!
