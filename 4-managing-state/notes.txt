@@ -413,3 +413,14 @@ function App() {
 
 
 Voila we have 2 synced components!
+
+
+
+---Excercise:---
+Task 1 - Update Game Player Name - simple update on nested Obj.
+Task 2 - Update pizza toppings - modify array to add item.
+Task 3 - update quanity - target a specific item & update
+
+
+Take Home:
+prefer to use immer, but its important to be comfotable writing update logic in the old way too.
