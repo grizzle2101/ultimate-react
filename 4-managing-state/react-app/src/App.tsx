@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Button from "./components/Button/Button";
 import produce from "immer";
+import ExpandableText from "./components/ExpandableText/ExpandableText";
 
 function App() {
   const [game, setGame] = useState({
@@ -11,77 +12,42 @@ function App() {
     },
   });
 
-  const [pizza, setPizza] = useState({
-    name: "El Diablo",
-    toppings: ["pepperoni", "sweetcorn", "pineapples"],
-  });
-
-  const [cart, setCart] = useState({
-    discount: 0.1,
-    items: [
-      { id: 1, title: "product 1", quantity: 1 },
-      { id: 2, title: "product 2", quantity: 1 },
-    ],
-  });
-
-  //Excercise 1 - Simple Update
-  const handleGame = () => {
-    //setGame({ ...game, player: { name: "Bob" } });
-
-    //immer version
-    setGame(
-      produce((draft) => {
-        draft.player.name = "New Name";
-      })
-    );
-  };
-
-  //Excercise 2 - update array
-  const handlePizza = () => {
-    //setPizza({ ...pizza, toppings: [...pizza.toppings, "Cheese"] });
-
-    setPizza(
-      produce((draft) => {
-        draft.toppings.push("Forbidden topping");
-      })
-    );
-  };
-
-  //Excercise 3 - update specific object
-  const handleCart = () => {
-    /*
-    setCart({
-      ...cart,
-      items: cart.items.map((item) =>
-        item.id === 2 ? { ...item, quantity: item.quantity + 1 } : item
-      ),
-    });
-    */
-
-    setCart(
-      produce((draft) => {
-        //pick item, then update quantity
-        let selected = draft.items.find((item) => item.id === 2);
-        if (selected) selected.quantity = selected.quantity + 1;
-      })
-    );
-  };
-
   return (
     <>
-      <h1>Excercise 1 - Simple Update:</h1>
-      <div>{JSON.stringify(game)}</div>
-      <Button onClick={handleGame}>Update Game</Button>
-
       <br />
-      <h1>Excercise 2 - Update Array:</h1>
-      <div>{JSON.stringify(pizza)}</div>
-      <Button onClick={handlePizza}>Add Topping</Button>
-
-      <br />
-      <h1>Excercise 3 - Update Speicific Object:</h1>
-      <div>{JSON.stringify(cart)}</div>
-      <Button onClick={handleCart}>Update Cart</Button>
+      <h1>Excercise - Expandable Text</h1>
+      <div>
+        <ExpandableText>
+          {" "}
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+          rutrum elementum erat et tristique. Fusce ut sem suscipit, maximus
+          odio ac, feugiat nulla. Suspendisse sit amet eros quam. Aenean
+          euismod, lorem dictum consectetur semper, sapien neque scelerisque
+          neque, ut tempus risus orci vel lectus. Aliquam erat volutpat. Vivamus
+          quis arcu eros. Aliquam accumsan volutpat porttitor. Fusce eget
+          rhoncus lorem. Praesent lobortis, eros non accumsan vestibulum, tellus
+          mi auctor diam, placerat eleifend massa nulla dignissim dui. Nulla
+          mauris urna, eleifend pellentesque est nec, laoreet mattis dui. Etiam
+          a dui nibh. Fusce vitae arcu vitae libero tristique condimentum quis
+          ac mi. Nulla sit amet dui ac erat volutpat tempus sit amet et leo.
+          Curabitur molestie, libero ac viverra elementum, mi elit consectetur
+          est, dignissim malesuada lacus magna at turpis. Etiam leo lorem,
+          cursus at commodo ut, vulputate nec elit. Etiam aliquet bibendum erat,
+          ac molestie mauris efficitur quis. Phasellus bibendum magna justo, nec
+          vulputate urna efficitur sed. Vestibulum ante nibh, laoreet ac
+          accumsan non, pretium ac est. Fusce nec consectetur odio. Donec
+          fringilla condimentum massa. Praesent et urna ut magna dignissim
+          vulputate vel eu ligula. Aenean consectetur condimentum tortor eget
+          consectetur. Proin augue erat, sodales vitae gravida vel, dignissim
+          vel leo. Praesent et sollicitudin massa. In sodales arcu in turpis
+          vulputate ullamcorper. Nunc pretium quam non dignissim elementum.
+          Praesent gravida metus id faucibus consectetur. Aenean in purus
+          eleifend nisl varius tempus ut eget purus. Morbi orci nisl, dictum ac
+          faucibus at, congue et neque. Duis porttitor, nisi non gravida
+          interdum, est risus vestibulum sem, a hendrerit nunc ante eu diam. In
+          id pulvinar massa, sit amet finibus mi. Nunc nec ultrices erat.
+        </ExpandableText>
+      </div>
     </>
   );
 }

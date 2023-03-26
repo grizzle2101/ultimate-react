@@ -424,3 +424,12 @@ Task 3 - update quanity - target a specific item & update
 
 Take Home:
 prefer to use immer, but its important to be comfotable writing update logic in the old way too.
+
+
+
+---Excercise:---
+
+-Create ExpandableText component
+-allows us to pass huge amouts of text
+-dy default hides anything after 100 characters (but is configurable)
+-has a button to show/hide everthing else...
