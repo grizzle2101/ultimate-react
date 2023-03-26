@@ -63,3 +63,54 @@ just a normal function, except we taake in the event
   };
 
 We will cover the data transmission part of this in the next section.
+
+
+
+---4 - Accessing Input Fields:---
+
+So react provides hooks for looking at DOM elements, called useRef.
+This is how we're going to listen for input values.
+
+
+Task 1 - Create variables for holding DOM Data:
+  const nameRef = useRef<HTMLInputElement>(null);
+  const ageRef = useRef<HTMLInputElement>(null);
+  let person = { name: "", age: 0 };
+
+
+Task 2 - Add Ref to HTML:
+we add the ref property, and set it to the newly created nameRef object above
+ <input
+            ref={nameRef}
+            id="name"
+            type="text"
+            className="form-control"
+          >
+</input>
+
+
+
+note:
+Because the way useRef is designed & initialized we have a couple issues.
+At the time we create the useRef, the DOM elements won't be built, so we get errors about potentials for null/undefined.
+We also have to provide null, even tho its clearly going to be null anyway, looks ugly.
+
+
+
+Task 3 - Update & Submit:
+-make sure ref object isn't null, then save it.
+-finally log data to screen.
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    if (nameRef.current?.value !== null)
+      person.name = nameRef.current?.value as string;
+
+    if (ageRef.current !== null) person.age = parseInt(ageRef.current.value);
+
+    console.log("person - ", person);
+  };
+
+
+Take Home:
+useRef allows us to access any DOM object, HTMLInputElement is defined in most browsers as a generic INPUT.
+We obviously have buttons, inputs, divs and so on.
