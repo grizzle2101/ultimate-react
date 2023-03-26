@@ -1,0 +1,41 @@
+---Building Forms:---
+Forms are an essential part of many applications, in this section we'll learn how to build them with react &
+third part libraries.
+
+Tooling:
+-react hook forms - for managing form state
+-zod - for data validation
+
+
+
+---2 - Building a Form:---
+So to start building a form we'll start by adding bootstrap back in.
+
+
+Task 1 - enable bootstrap:
+Go to main.tsx and add the import back in.
+import "bootstrap/dist/css/bootstrap.css";
+
+
+Task 2 - create basic form:
+-use bootstrap utility classes mb-3, form-label, form-control etc.
+-use type to infer what data should go into the form control. 
+
+<div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Name
+          </label>
+          <input id="name" type="text" className="form-control"></input>
+</div>
+
+Note:
+make sure to have ID & htmlFor matching, this is needed for a browser to associated forms & labels.
+
+          <label htmlFor="age" className="form-label"></label>
+          <input id="age" type="number" className="form-control" />
+
+
+Task 3 - Update Form Styling:
+Our form controls look a bit off, so the best way to fix this is to add global styling in index.css, then import
+this into main.tsx like so.
+import "./index.css";
