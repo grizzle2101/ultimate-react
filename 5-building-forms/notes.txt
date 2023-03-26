@@ -39,3 +39,27 @@ Task 3 - Update Form Styling:
 Our form controls look a bit off, so the best way to fix this is to add global styling in index.css, then import
 this into main.tsx like so.
 import "./index.css";
+
+
+
+---3 - Handling Form Submission:---
+Submitting data is simple enough, we need to bind to the onSubmit function within the form.
+
+
+Task 1 - Bind function to onSubmit
+      <form onSubmit={handleSubmit}>
+
+
+note:
+the default form function will submit data to server, and trigger a page refresh.
+To stop this undesirred behavior we need to call event.preventDefault.
+
+
+Task 2 - Create Function:
+just a normal function, except we taake in the event
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    console.log("submiting....");
+  };
+
+We will cover the data transmission part of this in the next section.
