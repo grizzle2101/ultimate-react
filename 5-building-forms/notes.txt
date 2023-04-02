@@ -114,3 +114,51 @@ Task 3 - Update & Submit:
 Take Home:
 useRef allows us to access any DOM object, HTMLInputElement is defined in most browsers as a generic INPUT.
 We obviously have buttons, inputs, divs and so on.
+
+
+--- 5 -Controlled Components:---
+There is another way to get a value from a form, other than the refHook.
+We can use the stateHook.
+
+
+Task 1 - Create Person State Object:
+  const [person, setPerson] = useState({
+    name: "",
+    age: 0,
+  });
+
+
+Task 2 - Bind to onChange:
+update the person onChange of the input field.
+
+          <input
+            onChange={(event) =>
+              setPerson({ ...person, name: event.target.value })
+            }
+            id="name"
+            type="text"
+            className="form-control"
+          ></input>
+
+
+Task 3 - Submit:
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    console.log("person - ", person);
+  };
+
+
+Note:
+Its possible the value in react & the input field could be different. Eg if we update from the compnent.
+So keep these in sync, we should set the INPUT value property.
+This is called a 'controller component' as react has complete control over the value here, not the DOM
+            className="form-control"
+            value={person.name}
+          ></input>
+
+
+Note:
+Some people don't like this approach, because any change to the input fields means a re-render, even adding a full stop.
+So some people don't like the approach of using useState, and insist on useRef for performance.
+But remember premature optimization is the root of all evil!
+If you have complex form, maybe it makes for sense! but for smaller forms this perfectly ligimate.
