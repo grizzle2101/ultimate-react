@@ -162,3 +162,69 @@ Some people don't like this approach, because any change to the input fields mea
 So some people don't like the approach of using useState, and insist on useRef for performance.
 But remember premature optimization is the root of all evil!
 If you have complex form, maybe it makes for sense! but for smaller forms this perfectly ligimate.
+
+
+
+---6 - Managing Forms with React Hook:---
+As our forms get more complex, managing state with the stateHook can become time consuming & error prone.
+We have to make 2 changes
+-onChange event
+-value attritube
+
+
+There way to simplfy this is with a libary called react-form-hook
+
+Step 1 - Install:
+
+
+Step 2 - Import & Use:
+
+It has some really useful methods & properties:
+clearErrors
+control
+formState
+setError
+setValue
+register - register a input field with react.
+
+
+
+Step 3 - Destructure the Form:
+
+  const { register } = useForm();
+  console.log("register - ", register("name"));
+
+Result:
+This creates a form object, using reference hooks to get values from objects.
+There is no re-rendering involved here.
+{name: 'name', onChange: ƒ, onBlur: ƒ, ref: ƒ}
+
+
+
+Step 4 - Usage:
+So after knowing how register works, we simple use register inside the input field.
+
+          <input
+            {...register("name")}
+            id="name"
+            type="text"
+            className="form-control"
+          ></input>
+
+
+Step 5 - Submit:
+
+react hook also has a method for submitting the form.
+To get access, we just add it to our destrtucturing code.
+  const { register, handleSubmit } = useForm();
+
+Then call it inside the onSubmit event.
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+
+And pass in the function that gets envoked once the form is submitted.
+  const onSubmit = (data: FieldValues) => console.log("sending - ", data);
+
+
+Take Home:
+react form hook means we can create form control objects, validation & submiting with much less code.
