@@ -298,3 +298,84 @@ interface formData {
 
   Now if we go to use errors in the form, we get form.name & form.age.
   Makes out development life easier if we have type Safety.
+
+
+
+---8 - Schema based validation with Zod:---
+How to we improve the validation rules inside out markup?
+As our form gets more complex, this will get very messy.
+
+
+Schema based validation libraries:
+-joy
+-yup
+-zod
+
+Step 1 - Install:
+npm install zod@3.20.6
+
+
+Step 2 - Create Schema:
+we can use z to create an object, with 2 properties and their structure.
+const schema = z.object({
+  name: z.string().min(3),
+  age: z.number().min(18),
+});
+
+
+Step 3 - Create interface:
+One of the nice features of zod is we can recreate our inerface in a single line, using inter schema.
+type formData = z.infer<typeof schema>;
+
+
+note:
+typescript type is basically an interface.
+
+Step 4 - install resolvers:
+npm install @hookform/resolvers@2.9.11
+
+
+Step 5 - Pass in ZodResolver:
+const Form = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<formData>({ resolver: zodResolver(schema) });
+
+
+
+Step 6 - Modify Error Blocks:
+so now we can use just one error block, and display the ZOD validation message instead.
+ {errors.name && <p className="text-danger">{errors.name.message}</p>}
+
+
+
+
+ note:
+ We're getting validation errors saying the input cannot be a string. That is because by default input
+ fields return as string, so we need to instruct react to parse as number.
+ We do this like so.
+          <input
+            {...register("age", { valueAsNumber: true })}
+
+
+
+Step 7 - Create Custom Messages:
+We can pass a second parameter in our rule definition, the message we wish to use!
+const schema = z.object({
+  name: z.string().min(3),
+  age: z
+    .number({ invalid_type_error: "Age Field is required." })
+    .min(18, "Age must be at least 18."), //custom error message.
+});
+
+
+Take Home:
+-use zod to define a schema for a form object.
+-use zod resolver to allow the schema & react-form-hook to integrate.
+-register 'name' in the input field, which will use our zod resolved schema object.
+-use errors.<form-control> to display one of many possible errors.
+
+Our validation is a lot more powerful, customizeable and tidy now!
+There is a lot more to ZOD, would definitly recommend going over to zod.dev for complete documentation.
