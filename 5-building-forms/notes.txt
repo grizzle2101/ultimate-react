@@ -228,3 +228,73 @@ And pass in the function that gets envoked once the form is submitted.
 
 Take Home:
 react form hook means we can create form control objects, validation & submiting with much less code.
+
+
+
+---7 - Applying Validation:---
+
+
+
+
+Step 1 - Destructure FormState:
+We can use formState to apply validation, we just need to take it from useForm.
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+
+
+
+Step 2 - Decorate Input Field:
+register can take a second parameter, a validation object.
+For now we'll just use basic HTML validators required & minLength.
+
+<input
+            {...register("name", { required: true, minLength: 3 })}
+            id="name"
+            type="text"
+            className="form-control"
+          ></input>
+
+
+
+Result:
+If we log the errors object, when we update the input field we can see they're in error.
+  console.log("errors - ", errors);
+
+
+Step 3 - Display Errors to User:
+We can use 2 paragraph sections to display errors for required & min length, conditionally based on the
+formState errors.
+
+ {errors.name?.type === "required" && (
+            <p className="text-danger">The Name field is Required.</p>
+          )}
+          {errors.name?.type === "minLength" && (
+            <p className="text-danger">Must be 3 characters.</p>
+          )}
+
+
+Step 4 - Improve Type Safety:
+So we've probaly noticed typescript has no idea about our name & age propertys on formState errors.
+We can improve this with use of an interface.
+
+-declare interfact
+
+interface formData {
+  name: string;
+  age: number;
+}
+
+-apply class to useForm.
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<formData>();
+
+
+  Now if we go to use errors in the form, we get form.name & form.age.
+  Makes out development life easier if we have type Safety.
