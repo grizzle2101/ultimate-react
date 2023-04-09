@@ -394,3 +394,21 @@ Step 2 - Bind isValid to disabled property:
         <button className="btn btn-primary" type="submit" disabled={!isValid}>
           Submit
         </button>
+
+
+---10 - Project - expense Tracker:---
+We want to create a mini expense tracker.
+
+3 input fields to record an expense:
+
+Part 1 - Form:
+-description - text input
+-amount - number input
+-category - dropdown
+-submit button
+
+Part 2 - Table:
+we then want the item to be added to a table with the fields
+-description, price & catetory.
+-we want a button section to delete the item.
+-finally we want a dropdown to sort the data being displayed.
