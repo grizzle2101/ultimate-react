@@ -379,3 +379,18 @@ Take Home:
 
 Our validation is a lot more powerful, customizeable and tidy now!
 There is a lot more to ZOD, would definitly recommend going over to zod.dev for complete documentation.
+
+
+
+---9 - disabling submit:---
+So now that we have the form state object, lets disable the submit button!
+
+Step 1 - Take isValid:
+So as noted before when we printed the form object, we have a field isValid we can use.
+   formState: { errors, isValid },
+
+
+Step 2 - Bind isValid to disabled property:
+        <button className="btn btn-primary" type="submit" disabled={!isValid}>
+          Submit
+        </button>
