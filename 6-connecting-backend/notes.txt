@@ -1,0 +1,13 @@
+---6 - Connecting to the backend:---
+So far we've dealt entirely with React, in the real world we're going to need to connect this to a backend to drive
+the application.
+
+Backend Frameworks:
+-Express.js
+-django
+-ruby on rails
+-spring
+-asp.net core
+
+Building out these backend is beyond the scope of this tutorial series, but we will learn how to integrate with them.
+
