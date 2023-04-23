@@ -11,3 +11,66 @@ Backend Frameworks:
 
 Building out these backend is beyond the scope of this tutorial series, but we will learn how to integrate with them.
 
+
+
+--2 - Understanding the Effect Hook:---
+Before we can go into connecting backends, we really need to understand the effect hook.
+Earlier we mentioned that react comnponents should be PURE, so provided the same input, should always
+have the same output.
+
+        Component:
+props -> PURE -> JSX
+
+
+To keep our Components pure, we have to keep any changes out of the render phase.
+There are some scenarios where we might not want that to be the case.
+
+-store data in local storage
+-call to server to fetch/save data
+-manually modify the DOM
+
+So we cant perform these actions inside the component, thats where the EFFECT HOOK comes in.
+
+
+UseEffect(() => {})
+-to execute a piece of code AFTER the comopnent is rendered.
+
+
+Example Scenario:
+So say we want to focus on an input after the page loads.
+So add this functionalty, our component becomes UNPURE. We are updating the state, and will experience side effects.
+
+function App() {
+  //ref hook
+  const ref = useRef<HTMLInputElement>(null);
+
+  //side effect
+  if (ref.current) ref.current.focus();
+
+  return (
+    <>
+      <div>
+        <input ref={ref} type="text" className="form-control" />
+      </div>
+    </>
+  );
+}
+
+
+
+Some notes on useEffect.
+Just like other react hooks, we can only use it at the top level.
+So need inside the JSX, loops or if statements.
+We can also chain useEffects
+
+  useEffect(() => {
+    if (ref.current) ref.current.focus();
+  });
+
+  useEffect(() => {
+    document.title = "My App";
+  });
+
+
+Take Home:
+We use useEffect to modify components after they load, and to keep them pure.
