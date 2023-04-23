@@ -74,3 +74,107 @@ We can also chain useEffects
 
 Take Home:
 We use useEffect to modify components after they load, and to keep them pure.
+
+
+
+
+---3 - Effect Dependencies:---
+
+
+
+So say we have a product list, we want to simulate loading from a the data from a server.
+
+Example One - UseEffect:
+  useEffect(() => {
+    console.log("fetching products....");
+    setProducts(["clothing", "househole"]);
+  });
+
+  return <div>Product List:</div>;
+
+
+  Result:
+  So this useEffect is called a few hundred times, why?
+  Because we update the state, which triggered a re-render which trigger another reload and so on! an infinite
+  loop!
+  Remember we should be using effect away from the component state!
+
+
+ Lets get this running only once now!
+
+UseEffect Dependencies:
+So useEffect has a second parameter, variables we want to pass through each iteration.
+It uses these to keep track of state, but if return an empty array it will only ever run once.
+   useEffect(() => {
+    console.log("fetching products....");
+    setProducts(["clothing", "househole"]);
+  }, []);
+
+Result:
+Congrats, no more infinite loops!
+
+
+Example - Product Category selector:
+
+-add a product Category selector & set state
+ const [category, setCategory] = useState("");
+
+ <select
+        className="form-select"
+        onChange={(event) => {
+          console.log("event - ", event);
+          setCategory(event.target.value);
+        }}
+      >
+        <option value=""></option>
+        <option value="Clothing">Clothing</option>
+        <option value="Household">HouseHold</option>
+      </select>
+
+-set props on the productList to take in the Category value
+function ProductList({ category }: { category: string }) {
+
+-pass Category in app.tsx
+<ProductList category={category} />
+
+
+-take in state to useEffect:
+So given the category, we pretend to fetch the latest products
+  useEffect(() => {
+    console.log("fetching products in...." + category);
+    setProducts(["clothing", "househole"]);
+  }, []);
+
+
+
+So everything else works, but we dont get category?
+The useEffect already ran ONCE, remember? We need to update the useEffect Dependencies.
+
+Fix:
+We need to specify the values which trigger our change, so when category changes we re-exectute!
+  useEffect(() => {
+    console.log("fetching products in...." + category);
+    setProducts(["clothing", "househole"]);
+  }, [category]);
+
+
+
+
+Take Home:
+
+-NOT providing Dependencies will rerun on EVERY change.
+  useEffect(() => {
+    console.log("fetching products in...." + category);
+    setProducts(["clothing", "househole"]);
+  });
+
+-EMPTY bracks will only run once []
+
+-specifying a value means we ONLY execute when that item changes.
+  useEffect(() => {
+    console.log("fetching products in...." + category);
+    setProducts(["clothing", "househole"]);
+  }, [category]);
+
+
+-we can obviously pass in more complex nested object dependencies, will cover this more in depth later.

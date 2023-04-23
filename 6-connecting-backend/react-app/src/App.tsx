@@ -1,23 +1,25 @@
-import { useEffect, useRef } from "react";
+import { useState } from "react";
+import ProductList from "./components/ProductList";
 
 function App() {
-  //ref hook
-  const ref = useRef<HTMLInputElement>(null);
-
-  //afer render
-  useEffect(() => {
-    //side effect
-    if (ref.current) ref.current.focus();
-  });
-
-  useEffect(() => {
-    document.title = "My App";
-  });
+  const [category, setCategory] = useState("");
 
   return (
     <>
+      <select
+        className="form-select"
+        onChange={(event) => {
+          console.log("event - ", event);
+          setCategory(event.target.value);
+        }}
+      >
+        <option value=""></option>
+        <option value="Clothing">Clothing</option>
+        <option value="Household">HouseHold</option>
+      </select>
+      <ProductList category={category} />
       <div>
-        <input ref={ref} type="text" className="form-control" />
+        <input type="text" className="form-control" />
       </div>
     </>
   );
