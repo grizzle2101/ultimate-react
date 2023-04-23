@@ -42,6 +42,18 @@ function Table({ expenseItems, onRemove }: TableProps) {
             <h3 className="text-danger">Table is Empty</h3>
           )}
         </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td>Total:</td>
+            <td>
+              {"$" +
+                expenseItems
+                  .reduce((total, item) => total + item.amount, 0)
+                  .toString()}
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </>
   );

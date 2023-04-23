@@ -412,3 +412,26 @@ we then want the item to be added to a table with the fields
 -description, price & catetory.
 -we want a button section to delete the item.
 -finally we want a dropdown to sort the data being displayed.
+
+
+
+Missed Items:
+-filter the expenses using a dropdown
+-aggregate the total at the bottom
+
+
+Take Home:
+-We can create forms using react hook form to create the form object with basic HTML validation
+-for more complex validation we use zod to define schema based validation.
+-always let one component manage the state being shared between components (app.tsx)
+-use props to pass functions in to child components, but still allow app to maniupulate the data.
+-to show filtered data, put a function ontop of the input to the table.
+
+ const visibleExpenses = selectedCategory
+    ? items.filter((e) => e.category === selectedCategory)
+    : items;
+
+      <Table expenseItems={visibleExpenses} onRemove={removeItem} />
+
+-we can use refHook to access HTML elements in the typescript. Although this is not best approach for forms.
+react hook form makes this much easier, less tedious & error prone.
