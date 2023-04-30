@@ -4,27 +4,33 @@ import axios from "axios";
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
+  const [error, setError] = useState("");
 
   interface User {
     id: number;
     name: string;
   }
 
-  //returns a promise, result of async operation.
   useEffect(() => {
     axios
       .get<User[]>("https://jsonplaceholder.typicode.com/users")
       .then((res) => {
-        setUsers(res.data); //update state w response.
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        setError(err.message);
       });
-  }, []); //empty dependency - super important to avoid bombarding the server.
+  }, []);
 
   return (
-    <ul>
-      {users.map((user) => (
-        <li key={user.id}> {user.name}</li>
-      ))}
-    </ul>
+    <>
+      {error && <p className="text-danger">{error}</p>}
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}> {user.name}</li>
+        ))}
+      </ul>
+    </>
   );
 }
 

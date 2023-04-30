@@ -280,3 +280,33 @@ body - container for the data
 response headers
 
 We will cover this more in depth as needed, including different HTTP methods to update & delete records.
+
+
+
+--- 7 - Handling Errors:---
+So every developer needs to anticipate errors, how do we handle this in react?
+Every promist object in JavaScript has a catch block, we pass in a call back function here.
+
+
+Task 1 - catch Error:
+to simulate network error, see the x in the URL.
+
+  axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/usersx")
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+
+
+Task 2 - Display Error to end user:
+store the error is a state variable.
+  const [error, setError] = useState("");
+
+
+Modify the display. remember our trick to conidtionally render a section error &&.
+Meaning if we have an error return part 2.
+ <>
+      {error && <p className="text-danger">{error}</p>}
