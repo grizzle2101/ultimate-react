@@ -415,3 +415,51 @@ Note:
 Because the strict mode, our first component is created & killed very quickly, this is like a user clicking
 away, which works perfectly for us!
 We can see the first users call is cancelled.
+
+
+---10 - showing a loading indicator:---
+So the simplest way to show a loading indicator is to store isLoading variable, and dynamically show
+the bootstrap loader.
+
+
+Step 1 - Add Loading Variable:
+  const [isLoading, setLoading] = useState(false);
+
+useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true);
+
+
+note:
+The simplest way would be to have a finally block, if the promise succeeds or fails we update isLoading.
+But for some reason, finally & setState does not seem to work.
+      .finally(() => {
+        console.log("finally!");
+        setLoading(false);
+      });
+      
+
+
+
+Step 2 - Update Logic in then & catch.
+useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true);
+
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+        signal: controller.signal,
+      })
+      .then((res) => {
+        setLoading(false);
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setLoading(false);
+        setError(err.message);
+      });
+
+
+Step 3 - render loader:
+ {isLoading && <div className="spinner-border"></div>}
