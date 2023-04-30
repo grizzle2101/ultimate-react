@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 function ProductList({ category }: { category: string }) {
   const [products, setProducts] = useState<string[]>([]);
 
+  const connect = () => console.log("connecting...");
+  const disconnect = () => console.log("disconnecting...");
+
   useEffect(() => {
-    console.log("fetching products in...." + category);
-    setProducts(["clothing", "househole"]);
+    connect();
+
+    return () => disconnect();
   }, [category]);
 
   return <div>Product List:</div>;

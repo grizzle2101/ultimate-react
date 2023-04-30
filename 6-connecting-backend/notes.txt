@@ -178,3 +178,32 @@ Take Home:
 
 
 -we can obviously pass in more complex nested object dependencies, will cover this more in depth later.
+
+
+
+--- 4 - Effect Clean Up:---
+So say we're connecting to a chat server, we need to terminate & clean up when we're done,
+How do we go about this?
+
+
+Task 1 - create 2 functions to simulate connecting & disconnecting:
+  const connect = () => console.log("connecting...");
+  const disconnect = () => console.log("disconnecting...");
+
+
+Task 2 - Update useEffect:
+optionally useEffect allows us to return a function, which is exectuted on completion.
+  useEffect(() => {
+    connect();
+
+    return () => disconnect();
+  }, []);
+
+
+Note:
+this is exectuted twice, again becuase of STRICT mode in react.
+
+So if connect was an observable subscription, we might unsubscribe in the disconnect function.
+-unsubscribe
+-close modal
+-abort fetch for data
