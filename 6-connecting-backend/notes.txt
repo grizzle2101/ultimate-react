@@ -258,3 +258,25 @@ Task 4 - Render the data:
     </ul>
   );
 }
+
+
+
+--- 6 - understanding HTTP requests:---
+Its important to understand what goes on when we do a get request with AXIOS.
+
+
+sends a get over HTTP
+browser -(request)-> server
+browser <-(response )- server
+going into the network tab we can filter by fetch/XHR
+
+Note:
+Again we have 2 requests becuase we are developing with STRICT mode.
+
+What are the components of a request?
+request method - GET
+request headers - metadata
+body - container for the data
+response headers
+
+We will cover this more in depth as needed, including different HTTP methods to update & delete records.
