@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import ProductList from "./components/ProductList";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -11,15 +10,20 @@ function App() {
     name: string;
   }
 
+  //async not allowed?
   useEffect(() => {
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users")
-      .then((res) => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get<User[]>(
+          "https://jsonplaceholder.typicode.com/users"
+        );
         setUsers(res.data);
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
+      } catch (error) {
+        setError((error as AxiosError).message);
+      }
+    };
+
+    fetchUsers();
   }, []);
 
   return (

@@ -310,3 +310,63 @@ Modify the display. remember our trick to conidtionally render a section error &
 Meaning if we have an error return part 2.
  <>
       {error && <p className="text-danger">{error}</p>}
+
+
+
+--- 8 - Working with Async & Await:---
+Then & catch is not a very popular way of coding, lets check out another way.
+
+
+Step 1 - Basic Setup:
+So couple caveats here.
+To use await, we need to define the method as async, with react we cannot do this.
+The workaround is to create a function inside, which is markes as async.
+
+useEffect(() => {
+  // create async function
+    const fetchUsers = async () => {
+     const res = await axios.get<User[]>(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+        setUsers(res.data);
+    };
+
+  // call the function
+    fetchUsers();
+  }, []);
+
+
+
+Step 2 - Adding Error Handling:
+So with async & await we need a try catch block.
+-try to do the async call
+-catch the error & set errors
+useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get<User[]>(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+        setUsers(res.data);
+      } catch (error) {
+        setError((error as AxiosError).message);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+
+  Take Home:
+  This approach does work, but is leads to a a fair amount of overhead, creating an async function inside, try & catch
+  then invoking it, casting the error to a type we can erro handle. Is there a cleaner way?
+
+
+Compare the Code:
+In the previous tutorial, using then & catch, what is more readable?
+For simplicitys sake we're going to stick with then & catch
+
+  axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/usersx")
+      .then((res) => setUsers(res.data))
+      .catch((err) => setError(err.message);
+      );
