@@ -1,27 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductList from "./components/ProductList";
+import axios from "axios";
 
 function App() {
-  const [category, setCategory] = useState("");
+  const [users, setUsers] = useState<User[]>([]);
+
+  interface User {
+    id: number;
+    name: string;
+  }
+
+  //returns a promise, result of async operation.
+  useEffect(() => {
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users")
+      .then((res) => {
+        setUsers(res.data); //update state w response.
+      });
+  }, []); //empty dependency - super important to avoid bombarding the server.
 
   return (
-    <>
-      <select
-        className="form-select"
-        onChange={(event) => {
-          console.log("event - ", event);
-          setCategory(event.target.value);
-        }}
-      >
-        <option value=""></option>
-        <option value="Clothing">Clothing</option>
-        <option value="Household">HouseHold</option>
-      </select>
-      <ProductList category={category} />
-      <div>
-        <input type="text" className="form-control" />
-      </div>
-    </>
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}> {user.name}</li>
+      ))}
+    </ul>
   );
 }
 

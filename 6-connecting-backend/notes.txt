@@ -207,3 +207,54 @@ So if connect was an observable subscription, we might unsubscribe in the discon
 -unsubscribe
 -close modal
 -abort fetch for data
+
+
+
+--- 5 - Fetching Data:---
+So we're going to connect to a dummy backend, json placeholder.
+https://jsonplaceholder.typicode.com/
+
+How are we going to get the data? We can use fetch in the browser, or axios is what many developers go to.
+
+
+Task 1 - install axios:
+npm install axios@1.3.4
+
+
+Task 2 - create users state to hold the data.
+-create users state object.
+ const [users, setUsers] = useState<User[]>([]);
+ 
+-define an interfact for the data.
+  interface User {
+    id: number;
+    name: string;
+  }
+
+
+
+Task 3 - use Axios:
+-use axios.get() to fetch our data.
+-axios returns a promise, use .then to access data via callback function.
+-Then set users using the resulting data.
+
+  useEffect(() => {
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users")
+      .then((res) => {
+        setUsers(res.data); //update state w response.
+      });
+  }, []);
+
+Note:
+Remember the importantance of the empty dependency [], this ensures it only runs once, and doesn't bombard the server.
+
+Task 4 - Render the data:
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}> {user.name}</li>
+      ))}
+    </ul>
+  );
+}
