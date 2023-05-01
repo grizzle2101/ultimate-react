@@ -463,3 +463,56 @@ useEffect(() => {
 
 Step 3 - render loader:
  {isLoading && <div className="spinner-border"></div>}
+
+
+
+---11 - Deleting Data:---
+So to start with deleting data, we need to create a button & update our UI & backend to reflect the changes.
+
+
+
+
+Task 1 - Update the UI:
+-use the bootstrap flex classes to make the list look nice.
+-add button with onClick function.
+      <ul className="list-group">
+        {users.map((user) => (
+          <li
+            className="list-group-item d-flex justify-content-between"
+            key={user.id}
+          >
+            {user.name}
+            <button
+              className="btn btn-outline-danger"
+              onClick={() => deleteUser(user)}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+
+
+
+Task 2 - delete function:
+We have 2 choices for deleting, we can use optimistic or pessimistic updates.
+optimistic - update the UI, call the server. (faster)
+pessimistic update - call the server, update the UI. (slower)
+
+-using optimistic updates
+-store users incase we have to revert.
+-delete + id of user
+-finally catch the errors & reset if needed.
+
+  const deleteUser = (user: User) => {
+    const originalUsers = [...users];
+
+    setUsers(users.filter((u) => u.id !== user.id));
+    axios
+      .delete("https://jsonplaceholder.typicode.com/xusers/" + user.id)
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+      });
+  };
+
