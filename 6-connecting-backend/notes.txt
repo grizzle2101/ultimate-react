@@ -517,7 +517,7 @@ pessimistic update - call the server, update the UI. (slower)
   };
 
 
----11 - Creating Data:---
+---12 - Creating Data:---
 So creating data is quite straight forward, we're not going to bother building a form as we already covered that.
 
 
@@ -559,3 +559,58 @@ Note:
 We get an error with duplicated keys, this is because we are using a fake backend.
 Any new user is given the id 11, but we're using key as a unique key for the list, which blows up.
 Ignore this for now, wont be a problem with a working backend.
+
+
+---13 - Updating Data:---
+Rinse & repeat here, only difference is the axios PATCH call.
+
+
+Note - PUT & PATCH:
+PUT will replace an existing object, where PATCH is used for modifying some properties on an object.
+Not all backends support PATCH, so it will vary in the real world.
+
+
+
+Task 1 - Add Update Button:
+-to fix alignment issue, put buttons in a div.
+-mx 1 means horizontal margin 1
+-call updateUser
+  <div>
+              <button
+                className="btn btn-outline-secondary mx-1"
+                onClick={() => updateUser(user)}
+              >
+                Update
+              </button>
+
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => deleteUser(user)}
+              >
+                Delete
+              </button>
+            </div>
+
+
+
+Task 2 - Patch:
+-store users incase failure.
+-create user by spreading & modifying name.
+-update user list, then call AXIOS PATCH (optimistic update)
+
+  const updateUser = (user: User) => {
+    const originalUsers = [...users];
+    const updatedUser = { ...user, name: user.name + "!" };
+
+    setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
+
+    axios
+      .patch(
+        "https://jsonplaceholder.typicode.com/users/" + user.id,
+        updatedUser
+      )
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+      });
+  };
