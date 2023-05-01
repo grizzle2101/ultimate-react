@@ -516,3 +516,46 @@ pessimistic update - call the server, update the UI. (slower)
       });
   };
 
+
+---11 - Creating Data:---
+So creating data is quite straight forward, we're not going to bother building a form as we already covered that.
+
+
+
+Task 1 - create button:
+      <button className="btn btn-primary mb-3" onClick={addUser}>
+        Add
+      </button>
+
+
+Task 2 - Create the Function:
+-optimistic update
+-store user incase failure.
+-
+  const addUser = () => {
+    const originalUsers = [...users];
+    const newUser = { id: 0, name: "Conor" };
+
+    setUsers([...users, newUser]);
+
+    axios
+      .post("https://jsonplaceholder.typicode.com/xusers/", newUser)
+      .then((res) => setUsers([res.data, ...users]))
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+      });
+  };
+
+
+  Task 3 - Clean up Code:
+  We can use object destructuring to make it more clear its savedUser & the initial users geing posted.
+
+      .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
+
+
+
+Note:
+We get an error with duplicated keys, this is because we are using a fake backend.
+Any new user is given the id 11, but we're using key as a unique key for the list, which blows up.
+Ignore this for now, wont be a problem with a working backend.
