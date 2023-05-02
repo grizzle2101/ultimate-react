@@ -614,3 +614,42 @@ Task 2 - Patch:
         setUsers(originalUsers);
       });
   };
+
+
+
+---14 - Extracting to Reuseable API:---
+So our code has grown, nows a good time to clean up. We can start to extract any duplication & similar functions.
+
+
+So to get started we can centralize the axios configuration, then modify it as needed in each compnent.
+
+Task 1 - Setup config.
+-create config file api-client
+-configure base URL and other things as needed.
+export default axios.create({
+  baseURL: "https://jsonplaceholder.typicode.com",
+  //where we configure server settings
+  //headers: {'api-key': '...'}
+});
+
+
+
+Task 2 - Refactor Component:
+So we can replace all references to AXIOS with our API object.
+
+apiClient
+      .get<User[]>("/users", {
+        signal: controller.signal,
+      })
+      .then((res) => {
+        setLoading(false);
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setLoading(false);
+        setError(err.message);
+      });
+
+
+Next we will look at extracting more of the HTTP work.
