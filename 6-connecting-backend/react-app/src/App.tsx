@@ -1,24 +1,17 @@
 import { useEffect, useState } from "react";
-import apiClient, { CanceledError } from "./services/api-client";
+import { CanceledError } from "./services/api-client";
+import userService, { User } from "./services/userService";
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
-  interface User {
-    id: number;
-    name: string;
-  }
-
   useEffect(() => {
-    const controller = new AbortController();
     setLoading(true);
+    const { request, cancel } = userService.getAllUsers();
 
-    apiClient
-      .get<User[]>("/users", {
-        signal: controller.signal,
-      })
+    request
       .then((res) => {
         setLoading(false);
         setUsers(res.data);
@@ -30,7 +23,7 @@ function App() {
       });
 
     return () => {
-      controller.abort();
+      cancel();
     };
   }, []);
 
@@ -38,7 +31,8 @@ function App() {
     const originalUsers = [...users];
 
     setUsers(users.filter((u) => u.id !== user.id));
-    apiClient.delete("/users" + user.id).catch((err) => {
+
+    userService.deleteUser(user.id).catch((err) => {
       setError(err.message);
       setUsers(originalUsers);
     });
@@ -50,8 +44,8 @@ function App() {
 
     setUsers([...users, newUser]);
 
-    apiClient
-      .post("/users", newUser)
+    userService
+      .addUser(newUser)
       .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
       .catch((err) => {
         setError(err.message);
@@ -65,15 +59,10 @@ function App() {
 
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
-    apiClient
-      .patch(
-        "https://jsonplaceholder.typicode.com/users/" + user.id,
-        updatedUser
-      )
-      .catch((err) => {
-        setError(err.message);
-        setUsers(originalUsers);
-      });
+    userService.updateUser(updatedUser).catch((err) => {
+      setError(err.message);
+      setUsers(originalUsers);
+    });
   };
 
   return (

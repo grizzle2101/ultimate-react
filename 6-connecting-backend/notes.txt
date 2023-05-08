@@ -653,3 +653,64 @@ apiClient
 
 
 Next we will look at extracting more of the HTTP work.
+
+
+
+---15 - Extracting to a User Service:---
+So our comopnent knows about cancelling requests, it knows about endpoints and HTTP, this is too much!
+Seperation of concerns, the component should only focus on its primary responsibility.
+
+
+
+
+Task 1 - Extract getUsers:
+-the user interface belongs in this service.
+-we still want the abort functionalty contained in the service, incase we ever need to cancel.
+-we return an object that encapsulates the request, and the logic for cancelling.
+
+export interface User {
+  id: number;
+  name: string;
+}
+
+class UserService {
+  getAllUsers() {
+    const controller = new AbortController();
+
+    const request = apiClient.get<User[]>("/users", {
+      signal: controller.signal,
+    });
+
+    return { request, cancel: () => controller.abort() };
+  }
+}
+
+export default new UserService();
+
+
+
+
+Result:
+-destructure request & cancel functionalty as needed.
+-call request.getAllUsers for loading.
+-then return the cancel function (will get exectuted in the event of components destruction).
+
+    const { request, cancel } = userService.getAllUsers();
+
+    request
+      .then((res) => {
+        setLoading(false);
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setLoading(false);
+        setError(err.message);
+      });
+
+    return () => {
+      cancel();
+    };
+
+Excercise:
+Complete this extraction for the remaining DELETE & PUT calls.
