@@ -714,3 +714,78 @@ Result:
 
 Excercise:
 Complete this extraction for the remaining DELETE & PUT calls.
+
+
+
+---16 - Creating Generic HTTP Service:---
+So if we look at creating a post endpoint for a new object, its going to look almost identical to the one we justify
+created. So it probaly makes sense to start creating generic HTTP services.
+
+
+Task - create Generic functions:
+-make every function name generic eg getAllUsers becomes getAll.
+-use a saved endpoint to allow users to customize.
+
+  getAll<T>() {
+    const controller = new AbortController();
+
+    const request = apiClient.get<T[]>(this.endpoint, {
+      signal: controller.signal,
+    });
+
+    return { request, cancel: () => controller.abort() };
+  }
+
+    delete(id: number) {
+    return apiClient.delete(this.endpoint + id);
+  }
+
+  create<T>(entity: T) {
+    return apiClient.post(this.endpoint, entity);
+  }
+
+
+Task - Add ID Constraint:
+SO we get a complain on the entity.id as the compiler knows ID isn't required by T generic class. So we need
+to make a change for that.
+
+-define the Entity Interface w Id.
+interface Entity {
+  id: number;
+}
+
+
+-generic item MUST inherit ENTITY & implement id.
+  update<T extends Entity>(entity: T) {
+    return apiClient.patch(this.endpoint + "/" + entity.id, entity);
+  }
+
+
+Task - Pass in Endpoint:
+so we want users to pass in their endpoint URL, we can do it like so.
+-save endpoint
+-constructor to set value.
+-export create function, which exports instance of service, with URL saved.
+
+class HttpService {
+  endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = endpoint;
+  }
+
+
+const create = (endpoint: string) => new HttpService(endpoint);
+
+
+
+Task - update UserSerive Implementation:
+So where we want to create a user service, we specify the endpoint, and have our user model.
+import create from "./http-service";
+
+export interface User {
+  id: number;
+  name: string;
+}
+
+export default create("/users");
