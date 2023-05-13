@@ -1,0 +1,25 @@
+---Project - Game Discovery App:---
+So the inspiration for this project is a game discovery platform called https://rawg.io/.
+It has a whole list of real world feature, and we're going to build a simple version of this in
+the coming tutorials.
+
+
+The Challenge is to do our own Implementation first, then maybe watch the mosh version.
+
+
+Tasks:
+-create new project
+-install chakra UI
+-create basic layout for website
+-build navigation bar
+-implement dark mode
+-fetch games - custom fetch hook
+    -data service
+    -loading spinner
+    -error handling
+-build game cards
+-add filtering ability (genre)
+-critic score
+-optimized images
+-fetch genres
+-game grid
