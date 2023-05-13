@@ -789,3 +789,61 @@ export interface User {
 }
 
 export default create("/users");
+
+
+
+--- 17 - Creating Data Fetching Hook:---
+So imagine we have a need to fetch the list of users elsewhere in the application.
+If we duplicate this code we have to
+-duplicate state variables for user data, errors & loading.
+-duplicate data retrival & error handling.
+
+A Fetch hook is a great way to modularize getting the users data by extracting it into our own hook.
+
+
+Task - create custom Hook:
+-create useUsers.ts file (convention is the word useX)
+-extract all the state variables, loading & error handling logic.
+
+const useUsers = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const { request, cancel } = userService.getAll<User>();
+
+    request
+      .then((res) => {
+        setLoading(false);
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setLoading(false);
+        setError(err.message);
+      });
+
+    return () => {
+      cancel();
+    };
+  }, []);
+
+  //return state variables for use in component.
+  return { users, error, isLoading, setUsers, setError };
+};
+
+export default useUsers;
+
+
+
+Result:
+Every function can be exports & used in the app.ts, while the Implementation is hidden in our hook file.
+
+  const { users, error, isLoading, setUsers, setError } = useUsers();
+
+  const deleteUser = (user: User) => {
+    const originalUsers = [...users];
+
+    setUsers(users.filter((u) => u.id !== user.id));
