@@ -8,11 +8,14 @@ The Challenge is to do our own Implementation first, then maybe watch the mosh v
 
 
 Tasks:
+---TODO---
 -create new project
+    -npm create vite
 -install chakra UI
 -create basic layout for website
 -build navigation bar
--implement dark mode
+
+-implement dark mode - done
 -fetch games - custom fetch hook
     -data service
     -loading spinner

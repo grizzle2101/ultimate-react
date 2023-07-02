@@ -1,0 +1,19 @@
+.root {
+  width: 100vw;
+}
+
+.light-mode {
+  background-color: azure;
+  color: black;
+}
+
+.dark-mode {
+  background-color: black;
+  color: azure;
+}
+
+.navigation-bar {
+  height: 3rem;
+  display: grid;
+  grid-template-columns: 85fr 15fr;
+}
