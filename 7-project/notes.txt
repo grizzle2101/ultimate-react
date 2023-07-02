@@ -9,6 +9,7 @@ The Challenge is to do our own Implementation first, then maybe watch the mosh v
 
 Tasks:
 ---TODO---
+Task 1:
 -create new project
     -npm create vite
 -install chakra UI
@@ -16,10 +17,18 @@ Tasks:
 -build navigation bar
 
 -implement dark mode - done
+
+Task 2:
 -fetch games - custom fetch hook
     -data service
     -loading spinner
     -error handling
+
+-get api key from RAWG.io, login create API key.
+a0778e354b2c42f190a73c8b9ec9d1b6
+
+-install axios & config
+
 -build game cards
 -add filtering ability (genre)
 -critic score
