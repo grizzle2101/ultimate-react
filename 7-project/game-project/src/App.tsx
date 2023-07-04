@@ -7,7 +7,7 @@ import GameGrid from "./components/GameGrid";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const { games, error, isLoading, setGames, setError } = useGames();
+  const { gameData, error, isLoading, setGames, setError } = useGames();
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -18,12 +18,7 @@ function App() {
       <ChakraProvider>
         <div className={darkMode ? "root dark-mode" : "root light-mode"}>
           <NavBar onToggle={toggleDarkMode}></NavBar>
-          <ul className="list-group">
-            {games.map((game) => (
-              <li key={game.id}>{game.name}</li>
-            ))}
-          </ul>
-          <GameGrid></GameGrid>
+          {gameData && <GameGrid gameData={gameData}></GameGrid>}
         </div>
       </ChakraProvider>
     </>

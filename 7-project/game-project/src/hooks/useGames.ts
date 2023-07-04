@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import gameService, { Game } from "../services/gameService";
+import gameService, { GameData } from "../services/gameService";
 import { CanceledError } from "axios";
 
 const useGames = () => {
-  const [games, setGames] = useState<Game[]>([]);
+  const [gameData, setGames] = useState<GameData>();
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
@@ -15,7 +15,14 @@ const useGames = () => {
     request
       .then((res) => {
         setLoading(false);
-        setGames(res.data.results);
+
+        //map shiat
+        const gameData: GameData = {
+          count: res.data.count,
+          games: res.data.results,
+        };
+
+        setGames(gameData);
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
@@ -29,7 +36,7 @@ const useGames = () => {
   }, []);
 
   //return state variables for use in component.
-  return { games, error, isLoading, setGames, setError };
+  return { gameData, error, isLoading, setGames, setError };
 };
 
 export default useGames;
