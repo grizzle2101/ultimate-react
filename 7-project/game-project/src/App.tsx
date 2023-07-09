@@ -3,11 +3,14 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import { ChakraProvider } from "@chakra-ui/react";
 import useGames from "./hooks/useGames";
+import useGenres from "./hooks/useGenres";
 import GameGrid from "./components/GameGrid";
+import GameFilter from "./components/GameFilter";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const { gameData, error, isLoading, setGames, setError } = useGames();
+  const { gameData } = useGames();
+  const { genreData } = useGenres();
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -18,7 +21,10 @@ function App() {
       <ChakraProvider>
         <div className={darkMode ? "root dark-mode" : "root light-mode"}>
           <NavBar onToggle={toggleDarkMode}></NavBar>
-          {gameData && <GameGrid gameData={gameData}></GameGrid>}
+          <div className="main-content">
+            {genreData && <GameFilter genreData={genreData}></GameFilter>}
+            {gameData && <GameGrid gameData={gameData}></GameGrid>}
+          </div>
         </div>
       </ChakraProvider>
     </>

@@ -11,7 +11,8 @@ class HttpService {
     this.endpoint = endpoint;
   }
 
-  getGamesData<T>() {
+  //count & result obj.
+  getGenericGameData<T>() {
     const controller = new AbortController();
 
     const request = apiClient.get<T>(this.endpoint, {
