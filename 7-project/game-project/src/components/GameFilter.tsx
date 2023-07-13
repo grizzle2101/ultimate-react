@@ -1,17 +1,24 @@
-import { List, ListItem } from "@chakra-ui/react";
-import { GenreData } from "../services/genreService";
+import { HStack, List, ListItem, Image, Text } from "@chakra-ui/react";
+import useGenres from "../hooks/useGenres";
 
-interface GameFilterProps {
-  genreData: GenreData;
-}
+function GameFilter({ handleSelection }) {
+  const { genreData } = useGenres();
 
-function GameFilter(genreDataProps: GameFilterProps) {
   return (
     <>
       <div>
         <List spacing={2}>
-          {genreDataProps.genreData?.results.map((genre) => (
-            <ListItem key={genre.id}>{genre.name}</ListItem>
+          {genreData?.results.map((genre) => (
+            <ListItem key={genre.id} onClick={() => handleSelection(genre.id)}>
+              <HStack>
+                <Image
+                  boxSize="32px"
+                  borderRadius={8}
+                  src={genre.image_background}
+                />
+                <Text>{genre.name}</Text>
+              </HStack>
+            </ListItem>
           ))}
         </List>
       </div>
