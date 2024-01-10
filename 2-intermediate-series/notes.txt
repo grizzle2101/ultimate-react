@@ -1,0 +1,69 @@
+Introduction:
+In the previous section we covered the fundamentals of building an application with react, now we're
+going to take on more intermediate topics Like
+-managing & caching data with react Query
+-state management with Zustand
+-routing with react router.
+
+This will enable us to deliver some new featurees to game hub like caching data, infinite scroll aswell as
+the game details page.
+
+
+Prerequisites:
+-basics of typescript
+-building components
+-styling components
+-managing component state
+-calling backend services
+
+
+What you'll learn:
+-react query - data management & query. - we'll never have to useEffect() again.
+It also comes with some great features like
+    -caching
+    -automatic retry
+    -automatic refresh
+    -paginated & infinite queries
+
+-Global State Management
+-reducers
+-context
+-providers
+-Zustand library
+
+What about redux?
+With the tools at our disposal, react is no longer neccessary. We will elabourate on this shortly.
+
+
+Routing with React Router:
+We will learn to build multi page applications with react router, a game details page.
+
+3 Essentials Topics will be covered:
+-data management & caching
+-global state management
+-routing
+
+
+Source Code:
+Playground Starter: 
+This repository contains the starter code for this course. It's a basic playground project that will allow you to explore the concepts we talk about in isolation. 
+You'll be able to follow along with the course and practice your React skills without any distractions. 
+https://github.com/mosh-hamedani/react-course-part2-starter
+
+Playground Finish: 
+This repository contains the completed source code for the playground project. 
+It's the same code that I'll be showing in the videos, so you can or use it as a reference when you're 
+stuck need some guidance.
+https://github.com/mosh-hamedani/react-course-part2-finish
+
+GameHub Starter: 
+This repository contains the GameHub project that we built in part 1 of the course. 
+We'll be using this project throughout the course and enhancing it as we go along. 
+https://github.com/mosh-hamedani/game-hub
+
+GameHub Finish: 
+This repository contains the completed GameHub project as of the end of part 2 of the course. 
+https://github.com/mosh-hamedani/game-hub-part2-finish
+
+The project is organized such that there is a commit for each lesson, with the commit message being the same 
+as the lesson name. This way, you can quickly find the completed codebase for each lesson.
