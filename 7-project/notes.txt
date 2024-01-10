@@ -35,3 +35,34 @@ a0778e354b2c42f190a73c8b9ec9d1b6
 -optimized images
 -fetch genres
 -game grid
+
+
+Notes from Moshes Implementation:
+-uses chakra grid for layout, instead of my custom CSS.
+-chakra has SHOW component for easier styling.
+-chakra color mode, created own theme. (stored in local storage)
+-error handling for API etc.
+-loading spinner
+-platform icons
+-critic score component, changes color based on score.
+-optimized images (using crop function from API)
+-filtering games on the service, sending genre.
+-platform selector component
+-sorting/ordering - again on API level
+-placeholder for games with no image.
+
+
+What did I miss?
+Query object pattern, instead of 3 variables to store search text, genre & platform, 1 object would do.
+Like so.
+  const [gameQuery, setGameQuery] = useState<GameQuery>({
+    searchText: "",
+    genre: 3,
+  } as GameQuery);
+
+A lot of features not explictly mentioned in excercise brief.
+Such as loading spinners, image optimization using the API crop feature, storing the genres data in JSON to avoid
+uneccessary API calls, custom color themes of charka, production updates & finally deploying to vercel
+
+One very useful thing was his useage of chakra built in properties, rather than custom CSS, it does make life 
+easier when doing mobile.

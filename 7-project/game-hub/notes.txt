@@ -1,0 +1,10 @@
+Getting Started with the GameGrid:
+
+
+-import chakra, get that running. - done
+-basic navigation setup - done
+-basic topbar - done
+-backend configuration - done
+-basic sidenav - done
+-basic cards
+-wire up components selected genres & search
