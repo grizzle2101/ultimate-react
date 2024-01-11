@@ -76,3 +76,38 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     </QueryClientProvider>
 
 In the next lectures we'll start using it to fetch some data.
+
+
+---Fetching Data:---
+So similar to useState, we have useQuery, where we pass key for storing the data, and a function
+to return the data.
+
+Step 1 - useQuery:
+  const { data: todos } = useQuery({
+    queryKey: ["todos", { completed: true }],
+    queryFn: fetchTodos,
+  });
+
+This gives is a query object with lots of the state data we had previously like loading.
+implement the fetch function, can be axios or any other library doesn't matter.
+
+Step 2 - implement fetch:
+  const fetchTodos = () => {
+    return axios
+      .get<Todo[]>("https://jsonplaceholder.typicode.com/todos")
+      .then((res) => res.data);
+  };
+
+
+Step 3 - use it:
+Just like before we take the .data from the the results, or destructure & rename like so.
+      {todos?.map((todo) => (
+        <li key={todo.id} className="list-group-item">
+          {todo.title}
+        </li>
+
+
+What benefits do we get from this approach?
+-retry mechanism
+-caching of data
+-auto refresh (configureable)
