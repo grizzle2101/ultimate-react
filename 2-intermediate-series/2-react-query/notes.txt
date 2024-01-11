@@ -111,3 +111,24 @@ What benefits do we get from this approach?
 -retry mechanism
 -caching of data
 -auto refresh (configureable)
+
+
+---Handling Errors:---
+So reactQuery already has an error object, we just need to destructure it and also provide the error type.
+
+So to make the error object useable, we need to define 2 things.
+The return type of a success response, and also the error object in case of failure.
+
+  const { data: todos, error } = useQuery<Todo[], Error>({
+    queryKey: ["todos", { completed: true }],
+    queryFn: fetchTodos,
+  });
+
+
+Error Usage:
+just as before, if we have an error display it.
+  if (error) return <p>{error.message}</p>;
+
+
+If we place an X in the URL, we'll see the multiple retries, and the eventual error handling kicking in!
+Easy as that.

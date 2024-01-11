@@ -13,14 +13,16 @@ const TodoList = () => {
   const fetchTodos = () => {
     console.log("getting...");
     return axios
-      .get<Todo[]>("https://jsonplaceholder.typicode.com/todos")
+      .get<Todo[]>("https://xjsonplaceholder.typicode.com/todos")
       .then((res) => res.data);
   };
 
-  const { data: todos } = useQuery({
-    queryKey: ["todos", { completed: true }], //key for cache
-    queryFn: fetchTodos, //function to get data
+  const { data: todos, error } = useQuery<Todo[], Error>({
+    queryKey: ["todos", { completed: true }],
+    queryFn: fetchTodos,
   });
+
+  if (error) return <p>{error.message}</p>;
 
   return (
     <ul className="list-group">
