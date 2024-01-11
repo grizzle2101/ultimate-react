@@ -1,0 +1,78 @@
+Introduction:
+We're going to explore fetching data with react query.
+part 1 - querying data
+-fetch data
+-handle errors
+-implement pagination
+-implement infinite queries
+-debug queries with react dev tools
+
+part 2 - mutating data
+-handle CRUD operations
+-optimistic updates
+-create custom hooks
+
+
+part 3:
+practical excercises, enhancing gamehub with what we have learned.
+
+
+What is react query?
+If we look at an example of the previous implementation on fetching data, we can see the steps required
+-declare useState to store the data.
+-useEffect to run fetch the data
+
+const TodoList = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    axios
+      .get('https://jsonplaceholder.typicode.com/todos')
+      .then((res) => setTodos(res.data))
+      .catch((error) => setError(error));
+  }, []);
+
+There are a couple issue with this implementation, like this
+-no request cancellation
+-no seperation on concerns or reuseability
+-no retries
+-no automatic refresh - have to refresh to see these changes
+-no caching
+
+We can implement these features, but it starts to get very messy.
+React query is a library for managing data fetching & caching in react applications, this will make our lives
+much easier.
+
+Redux is another popular caching library, which uses a centralized store to hold a single collection of the global
+data & state.
+
+Redux V react query:
+redux:
+-difficult to learn
+-much boilerplate code
+
+react query:
+-much simpler
+-more lightweight
+
+In many cases redux is no longer needed, at least for caching.
+There certainly are still uses in more complex applications with shared data, like a chat app etc.
+
+
+setting up react query?
+npm i @tanstack/react-query@4.28
+
+Add to main.tsx:
+We import the client & query provider, newup the client & pass to query client provider like so.
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+    <App />
+    </QueryClientProvider>
+
+In the next lectures we'll start using it to fetch some data.
