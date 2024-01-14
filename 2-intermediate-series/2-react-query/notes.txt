@@ -137,3 +137,20 @@ Easy as that.
 ---showing loading indicator:---
 So just like the error lecture, we can export isLoading & use it in the template.
 Simple as that.
+
+
+
+---Creating a Custom Query Hook:---
+So the best way to achieve seperation of concerns here is to create a custom hook.
+
+Step 1 - Create useTodos query:
+We just have to extract any query logic into useTodos hook and return the resulting query.
+  return useQuery<Todo[], Error>({
+    queryKey: ["todos", { completed: true }],
+    queryFn: fetchTodos,
+  });
+
+
+Step 2 - usage:
+All the functions, interfacts & query logic has been moved out, we just have 1 line to call function.
+  const { data: todos, error, isLoading } = useTodos();
