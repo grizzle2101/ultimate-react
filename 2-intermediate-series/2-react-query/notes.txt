@@ -167,3 +167,38 @@ Install Dev tools:
 
 Add to Main.tsx:
 </QueryClientProvider>
+
+
+
+---Customizing Querying Settings:---
+So the handy part of using react query, is we can make customizations per query or globally.
+
+Global Settings:
+for the most part the defaults are okay, the only thing we might change is stale time.
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 3,
+      cacheTime: 300_000,
+      staleTime: 10 * 1000,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchOnMount: false,
+    },
+  },
+});
+
+There are a couple scenarios where the data will automaticly refresh stale data.
+-when network is reconnected
+-when a component is mounted
+-when the window is refocused
+
+
+Settings per query:
+Again this is very easy to customerize per query, in useQuery we pass the stateTime setting for the todos list.
+  return useQuery<Todo[], Error>({
+    queryKey: ["todos", { completed: true }],
+    queryFn: fetchTodos,
+    staleTime: 10 * 1000,
+  });
