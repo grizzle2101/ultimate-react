@@ -202,3 +202,8 @@ Again this is very easy to customerize per query, in useQuery we pass the stateT
     queryFn: fetchTodos,
     staleTime: 10 * 1000,
   });
+
+
+
+---Excercise - fetching data:---
+implement the posts component with a custom hook.
