@@ -154,3 +154,16 @@ We just have to extract any query logic into useTodos hook and return the result
 Step 2 - usage:
 All the functions, interfacts & query logic has been moved out, we just have 1 line to call function.
   const { data: todos, error, isLoading } = useTodos();
+
+
+---Using react query dev tools:---
+react query comes with some great dev tools, this will allow us to see data in the cache, numbers of observers,
+as well as buttons to force certain actions eg loading, errors etc and test the component state.
+This should only be included in the development version of our app.
+It even has properties for our query, including cache time which we will learn to change next.
+
+Install Dev tools:
+ npm i @tanstack/react-query-devtools@4.28
+
+Add to Main.tsx:
+</QueryClientProvider>
