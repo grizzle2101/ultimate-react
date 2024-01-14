@@ -132,3 +132,8 @@ just as before, if we have an error display it.
 
 If we place an X in the URL, we'll see the multiple retries, and the eventual error handling kicking in!
 Easy as that.
+
+
+---showing loading indicator:---
+So just like the error lecture, we can export isLoading & use it in the template.
+Simple as that.
