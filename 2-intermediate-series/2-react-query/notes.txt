@@ -336,3 +336,58 @@ To change this, we can turn on keepPreviousData so we have keep the old data on 
     staleTime: 1 * 60 * 1000, //1m
     keepPreviousData: true
   });
+
+
+---infinite queries:---
+another similar scenario, we're going to add a button to load more data infintely.
+We will worry about the inifite scroll piece later.
+
+task 1 - remove page:
+So because we're moving away from the pages concept, we need to remove it here.
+  const pageSize = 10;
+    usePosts({ pageSize });
+
+
+task 2 - modify to useInfiniteQuery:
+-change to useInfiniteQuery
+return useInfiniteQuery<Post[], Error>({
+   
+-destructure pageParam from AXIOS & jsonplaceholder backend.
+ queryFn: ({ pageParam = 1 }) =>
+
+-provide function for tracking & pass to getNextPageParam.
+every backend if different, but json place holder works like this.
+allPages[page[pageData]] is nested array, we need the page to access correct data.
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length > 0 ? allPages.length + 1 : undefined;
+    },
+  });
+};
+
+task 3 - add button to trigger load:
+We have fetchNextPage function and isFetchingNextPage to use for the loading button.
+
+  const { data, error, isLoading, fetchNextPage, isFetchingNextPage } =
+    usePosts({ pageSize });
+
+<button
+        className="btn btn-primary my-3"
+        disabled={isFetchingNextPage}
+        onClick={() => fetchNextPage()}
+      >
+        {!isFetchingNextPage ? "Load More" : "Fetching..."}
+</button>
+
+
+task 4 - display data:
+because of the nested structure now we need to modify the displaying of data.
+again allPages[page[]]
+
+ {data.pages.map((page, index) => (
+          <React.Fragment key={index}>
+            {page.map((post) => (
+              <li key={post.id} className="list-group-item">
+                {post.title}
+              </li>
+            ))}
+          </React.Fragment>
