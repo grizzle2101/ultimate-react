@@ -461,3 +461,23 @@ Take Home:
 it seems to be quite handy, while both components use the same data source we can mutate in the add component,
 and see changes in the list component, by modiying the shared cached.
 Makes it easier to keep data in sync.
+
+
+
+---Handling Mutation Errors:---
+So how do we handle errors during mutations?
+
+
+task 1 - update types:
+We need to specicy input, error & output types for useMutation.
+const addTodo = useMutation<Todo, Error, Todo>({
+
+
+task 2 - show message:
+only if we have an error do we render this new section.
+Again we got errors with the types, until we provider the <Todo, Error, Todo> above.
+ {addTodo.error && (
+        <div className="alert alert-danger">{addTodo.error.message}</div>
+      )}
+
+simple as that.
