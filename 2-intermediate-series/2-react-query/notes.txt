@@ -391,3 +391,73 @@ again allPages[page[]]
               </li>
             ))}
           </React.Fragment>
+
+
+
+---Part 2 - mutating data:---
+So in this section we'll look at
+-creating mutations
+-handling mutation errors
+-implementing optimistic updates
+-creating custom mutation hooks
+-building services for querying/mutating data
+
+
+---Mutating Data:---
+So to get started we're going to create an Add Post button to demonstrate data mutating.
+
+
+Task 1 - submit the form:
+      onSubmit={(event) => {
+        event.preventDefault();
+
+
+Task 2 - Add Mutation Function:
+-
+
+  const addTodo = useMutation({
+    mutationFn: (todo: Todo) =>
+      axios
+        .post<Todo>("https://jsonplaceholder.typicode.com/todos", todo)
+        .then((res) => res.data),
+    onSuccess: (savedTodo, newTodo) => {
+      console.log("savedTodo - ", savedTodo);
+      ]);
+    },
+  });
+
+
+Task 3 - Submit triggers update:
+-check object before sending.
+-call mutate function & pass form data.
+        if (ref.current && ref.current.value)
+          addTodo.mutate({
+            id: 0,
+            title: ref.current?.value,
+            completed: false,
+            userId: 1,
+          });
+
+We have 2 solutions at this point, either invalidate the cache & trigger a refresh
+or
+update the cache ourselves.
+
+APPROACH 1 - does NOT work with JSON placeholder, as its fake backend:
+queryClient.invalidateQueries({ queryKey: ["todos"] });
+
+APPROACH 2 - updating cache
+
+Task 4 - Update Cache:
+-import query client to access the data.
+  const queryClient = useQueryClient();
+
+-jthey modify how we normally update data, it must be IMMUTABLE
+ queryClient.setQueryData<Todo[]>(["todos"], (todos) => [
+        savedTodo,
+        ...(todos || []),
+      ]);
+
+Take Home:
+it seems to be quite handy, while both components use the same data source we can mutate in the add component,
+and see changes in the list component, by modiying the shared cached.
+Makes it easier to keep data in sync.

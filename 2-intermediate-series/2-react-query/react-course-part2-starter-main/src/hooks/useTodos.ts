@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-interface Todo {
+export interface Todo {
   id: number;
   title: string;
   userId: number;
@@ -17,7 +17,8 @@ const useTodos = () => {
   };
 
   return useQuery<Todo[], Error>({
-    queryKey: ["todos", { completed: true }],
+    //problem here, mutating working on different collection...
+    queryKey: ["todos"],
     queryFn: fetchTodos,
     //staleTime: 10 * 1000,
   });
