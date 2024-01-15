@@ -263,3 +263,76 @@ when we select a user we get all posts for that user.
 Take Home:
 react query makes our application insanely fast by caching the previous queries, meanwhile it fetches
 any newer posts. To do this ourselves would be very complex.
+
+
+
+---paginated queries:---
+So we want to paginate data, very simlar process to previous lecture.
+
+task 1 - store page data
+  const pageSize = 10;
+  const [page, setPage] = useState<number>(1);
+
+
+task 2 - pass data to usePosts
+  const { data: posts, error, isLoading } = usePosts({ page, pageSize });
+
+
+task 3 - modify usePosts to take in page query object:
+-querykey will be posts/{page: x, pageSize: y}
+-start & limit are page & pageSize
+const usePosts = (query: PostQuery) => {
+  const fetchPosts = () => {
+    console.log("getting...", query);
+    return axios
+      .get<Post[]>("https://jsonplaceholder.typicode.com/posts", {
+        params: {
+          _start: (query.page - 1) * query.pageSize,
+          _limit: query.pageSize,
+        },
+      })
+      .then((res) => res.data);
+  };
+
+  return useQuery<Post[], Error>({
+    queryKey: ["posts", query],
+    queryFn: fetchPosts,
+  });
+
+
+task 4 - add some buttons:
+simply need to add buttons, then increment/decrement on click.
+      <button
+        className="btn btn-primary my-3"
+        disabled={page === 1}
+        onClick={() => {
+          setPage(page - 1);
+        }}
+      >
+        Previous
+      </button>
+
+      <button
+        className="btn btn-primary my-3 ms-1"
+        onClick={() => {
+          setPage(page + 1);
+        }}
+      >
+        Next
+      </button>
+
+  
+
+caveats:
+JSON placeholder does not give us the total number of pages, so we cannot tell when we've reached the end.
+For now its okay, we will proceed as is.
+
+another issue is when we scroll, the page triggers a load & disrupts the UI.
+To change this, we can turn on keepPreviousData so we have keep the old data on screen, while the refresh is happening.
+
+  return useQuery<Post[], Error>({
+    queryKey: ["posts", query],
+    queryFn: fetchPosts,
+    staleTime: 1 * 60 * 1000, //1m
+    keepPreviousData: true
+  });
