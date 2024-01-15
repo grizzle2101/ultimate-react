@@ -207,3 +207,59 @@ Again this is very easy to customerize per query, in useQuery we pass the stateT
 
 ---Excercise - fetching data:---
 implement the posts component with a custom hook.
+
+
+
+---parameterized queries:---
+So we want to get posts per user, how do we modify the app to do this?
+task 1 - create dropdown for user
+
+      <select
+        className="form-select mb-3"
+        value={userId}
+        onChange={(event) => {
+          setUserId(+event.target.value);
+        }}
+      >
+
+
+task 2 - store that in state variable
+  const [userId, setUserId] = useState<number>();
+
+task 3 - pass userId to usePosts
+  const [userId, setUserId] = useState<number>();
+
+task 4 - build query for fetch posts per user:
+we need to store the cached data in the correct format, eg users/1/posts
+  return useQuery<Post[], Error>({
+    queryKey:  ["users", userId, "posts"],
+    queryFn: fetchPosts,
+  });
+
+
+Problem:
+When we get all users, the cache key appears with a null.
+users, null, posts.
+To fix this, we can add some logic to the queryKey, if userId use it in storage key.
+
+queryKey: userId ? ["users", userId, "posts"] : ["posts"],
+
+
+task 5 - add userId to query:
+add the params object, with the userId & test this thing out
+    return axios
+      .get<Post[]>("https://jsonplaceholder.typicode.com/posts", {
+        params: {
+          userId,
+        },
+      })
+      .then((res) => res.data);
+  };
+
+
+result:
+when we select a user we get all posts for that user.
+
+Take Home:
+react query makes our application insanely fast by caching the previous queries, meanwhile it fetches
+any newer posts. To do this ourselves would be very complex.
