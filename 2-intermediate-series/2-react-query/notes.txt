@@ -481,3 +481,20 @@ Again we got errors with the types, until we provider the <Todo, Error, Todo> ab
       )}
 
 simple as that.
+
+
+---Showing mutation progress:---
+mutating the data can take some time, so often we want to show a spinner when thats happening.
+
+
+task 1 - add loading indicator:
+<button className="btn btn-primary">
+            {addTodo.isLoading ? "Adding..." : "Add"}
+</button>
+
+
+task 2 - clear form:
+ onSuccess: (savedTodo, newTodo) => {
+      console.log("savedTodo - ", savedTodo);
+
+      if (ref.current) ref.current.value = "";
