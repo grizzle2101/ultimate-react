@@ -552,3 +552,48 @@ interface AddTodoContext {
       if (!context) return;
       queryClient.setQueryData<Todo[]>(["todos"], context.previousTodos);
     },
+
+
+---creating a mutation hook:---
+So just like before, our component has gone way too bloated with mutation, axios and everything else.
+Lets start refactoring to a reuseable mutation hook to handle adding of items.
+
+
+
+task 1 - extract code out here.
+-create the useAddTodo.ts file, and extract everything to do with the data manipulation & saving.
+const useAddTodo = () => {
+  const queryClient = useQueryClient();
+
+
+
+task 2 - pass in Callback function (for consumers):
+We want our consumers to be notified when the work is done, so they clear the form or whatever else they need to.
+
+-pass callback to our function.
+const useAddTodo = (onAdd: () => void) => {
+
+-invoke after work is done.
+        onAdd();
+      return { previousTodos };
+
+
+
+We may aswell take the opportunity to improve a couple things.
+
+-1 - undefined fix, assign value [].
+if we assign the value to [], we cover the undefined scenario.
+queryClient.setQueryData<Todo[]>(CACHE_KEY_TODOS, (todos = []) => [
+        newTodo,
+        ...todos,
+      ]);
+    vs
+    ...(todos || [])
+
+
+-2 - global keys:
+chances of a typing 'todos' wrong in one of the dozen places quite high.
+Set this globally
+export const CACHE_KEY_TODOS = ["todos"];
+
+annnd we're done.
