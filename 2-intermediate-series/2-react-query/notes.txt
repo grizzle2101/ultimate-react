@@ -597,3 +597,82 @@ Set this globally
 export const CACHE_KEY_TODOS = ["todos"];
 
 annnd we're done.
+
+
+---reuseable API client:---
+another improvement we could make is to address the API duplication in useTodos & AddTodos components.
+So lets start by creating an API client.
+
+task 1 - create generic service:
+import axios from "axios";
+const axiosInstance = axios.create({
+  baseURL: "https://jsonplaceholder.typicode.com",
+});
+
+class APIClient<T> {
+  endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = endpoint;
+  }
+
+  getAll = () => {
+    return axiosInstance.get<T[]>(this.endpoint).then((res) => res.data);
+  };
+
+  post = (data: T) => {
+    return axiosInstance.post<T>(this.endpoint, data).then((res) => res.data);
+  };
+}
+
+export default APIClient;
+
+
+Task 2 - update usages:
+so fairly simple, newup the API client object, passing the URL.
+Then assign the query function to our new APIClient.getAll & voila we've remove a whole load of code.
+
+const apiClient = new APIClient<Todo>("/todos");
+
+const useTodos = () => {
+  return useQuery<Todo[], Error>({
+    queryKey: CACHE_KEY_TODOS,
+    queryFn: apiClient.getAll,
+    //staleTime: 10 * 1000,
+  });
+};
+
+AND the form component.
+ mutationFn: apiClient.post, //(todo: Todo) => apiClient.post(todo),
+
+
+
+Problem:
+What gives? the endpoint is undefined & our page is blowing up.
+This it because of how we pass the THIS context around, the reference function seems to have lost its context
+const useTodos = () => {
+  return useQuery<Todo[], Error>({
+    queryKey: CACHE_KEY_TODOS,
+    queryFn: apiClient.getAll,
+    //staleTime: 10 * 1000,
+  });
+};
+
+
+The Fix:
+option 1 - Speically binding the APIClient:
+    queryFn: apiClient.getAll.bind(apiClient),
+
+or alternativly using the arrow syntax, as arrow functions dont have their own context, so THIS will always refer
+to THIS inside the class.
+
+options 2 - arrow functions:
+  getAll = () => {
+    return axiosInstance.get<T[]>(this.endpoint).then((res) => res.data);
+  };
+
+  post = (data: T) => {
+    return axiosInstance.post<T>(this.endpoint, data).then((res) => res.data);
+  };
+
+  nice work we've cleaned up our code again quite some bit.
