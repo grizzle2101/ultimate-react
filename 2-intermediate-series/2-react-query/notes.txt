@@ -498,3 +498,57 @@ task 2 - clear form:
       console.log("savedTodo - ", savedTodo);
 
       if (ref.current) ref.current.value = "";
+
+
+---optimistic updates:---
+So to implement optimistic updates, we can update the list BEFORE the network call.
+
+
+task 1 - onMutate:
+So react query has a function onMutate, which will run before the onSuccess callback function is done.
+ onMutate: (newTodo) => {
+      queryClient.setQueryData<Todo[]>(["todos"], (todos) => [
+        newTodo,
+        ...(todos || []),
+      ]);
+    },
+
+
+task 2 - update the record on success:
+So the mutate function only put in a placeholder value, we need to update with one generated from the backend.
+If we have a duplicate, return the new value otherwise keep it as is.
+    onSuccess: (savedTodo, newTodo) => {
+      console.log("savedTodo - ", savedTodo);
+
+      queryClient.setQueryData<Todo[]>(["todos"], (todos) =>
+        todos?.map((todo) => (todo === newTodo ? savedTodo : todo))
+      );
+    },
+
+
+task 3 - handle errors:
+we need to store the old todos data, so we can restore later.
+-we need to create the interface for the previousTodos
+returned in the mutation.
+interface AddTodoContext {
+  previousTodos: Todo[];
+}
+
+-save before mutation
+    onMutate: (newTodo) => {
+      const previousTodos = queryClient.getQueryData<Todo[]>(["todos"]) || [];
+      console.log("saved - ", previousTodos);
+
+      queryClient.setQueryData<Todo[]>(["todos"], (todos) => [
+        newTodo,
+        ...(todos || []),
+      ]);
+
+      return { previousTodos };
+    },
+
+-finally implement onError
+ onError: (error, newTodo, context: AddTodoContext) => {
+      if (!context) return;
+      queryClient.setQueryData<Todo[]>(["todos"], context.previousTodos);
+    },
