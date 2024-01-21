@@ -676,3 +676,46 @@ options 2 - arrow functions:
   };
 
   nice work we've cleaned up our code again quite some bit.
+
+
+
+---Creating a reuseable HTTP service:---
+So the problem we have currently is we have 2 instances of the API client in
+useAddTodos and in useTodos(the fetching).
+const apiClient = new APIClient<Todo>("/todos");
+
+
+Task 1 - create service:
+-create service
+-extract todo class into service
+export interface Todo {
+  id: number;
+  title: string;
+  userId: number;
+  completed: boolean;
+}
+
+-export new todos APIClient.
+export default new APIClient<Todo>("/todos");
+
+
+Task 2 - update hooks:
+
+const useTodos = () => {
+  return useQuery<Todo[], Error>({
+    queryKey: CACHE_KEY_TODOS,
+    queryFn: todoService.getAll,
+    //staleTime: 10 * 1000,
+  });
+};
+
+
+results:
+we created a wrapper on API client, so now ever our hooks dont do any configuration of the APIClient either.
+We can remove the duplication and centralize the code so any future changes are easier.
+
+const apiClient = new APIClient<Todo>("/todos");
+ queryFn: apiClient.getAll,
+
+becomes 1 liner. NICE.
+ queryFn: todoService.getAll,
