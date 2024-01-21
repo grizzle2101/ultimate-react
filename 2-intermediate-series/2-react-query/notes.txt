@@ -719,3 +719,19 @@ const apiClient = new APIClient<Todo>("/todos");
 
 becomes 1 liner. NICE.
  queryFn: todoService.getAll,
+
+
+
+---Understanding the Application Layers:---
+The great thing about our architecture is that each layer has a single responsability & good seperation of concerns.
+The Component knows nothing about the data fetching, the hooks know nothing about the HTTP configuration,
+and the HTTP services know nothing about the API & networking configuration
+-reduce duplication
+-improve scalability
+-reduce bugs
+-improve maintenance
+
+Components - TodoForm, Todolist (renders)
+custom hooks - useTodos, useAddTodo (manages state & errors)
+HTTP Services - todoService (instnaces of API client for specific objects)
+API Client - API Client (handles HTTP)
