@@ -735,3 +735,39 @@ Components - TodoForm, Todolist (renders)
 custom hooks - useTodos, useAddTodo (manages state & errors)
 HTTP Services - todoService (instnaces of API client for specific objects)
 API Client - API Client (handles HTTP)
+
+
+
+---excercise:---
+
+-Excercise 1 - fetch genres using react query:
+-clone projtect
+-update API KEY
+-install react query using dev tools
+-update provider in main.tsx and make sure that works - done
+-generic http service - done
+-specific service implementation - done
+-refactor useGenres to useReactQuery - done
+-modify hook
+-modify component
+-think my solution is working, but perhaps the the 2 different services calling the same API a problem.
+either A, stick to existing version or B, migrate other sections too... option A plz.
+-come back & evaluate moshes solution.
+
+Moshes Version:
+so in the mosh version he kept it simple, and used the APIClient we already created, which helps.
+
+  return useQuery({
+    queryKey: GENRE_CACHE_KEY,
+    queryFn: getGenres,
+    staleTime: 24 * 60 * 60 * 1000, //24h
+    initialData: { count: genres.length, results: genres },
+  });
+
+And also used the FetchResponse object we created earlier, just makes more sense for this particular API to keep
+the same format.
+const getGenres = () => {
+  return apiClient
+    .get<FetchResponse<Genre>>("/genres")
+    .then((res: any) => res.data);
+};
