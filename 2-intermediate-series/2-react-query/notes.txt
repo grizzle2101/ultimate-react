@@ -771,3 +771,11 @@ const getGenres = () => {
     .get<FetchResponse<Genre>>("/genres")
     .then((res: any) => res.data);
 };
+
+
+---excercise 2 - platforms hook:---
+So we need to do the same, but for platforms component & hook.
+Exact same as previous excercise, only exception being the endpoint slighly different.
+
+/platforms returns duplices & old platforms, lists/parents has the top ones.
+.get<FetchResponse<Platform>>("/platforms/lists/parents")
