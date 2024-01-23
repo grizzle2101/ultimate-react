@@ -779,3 +779,35 @@ Exact same as previous excercise, only exception being the endpoint slighly diff
 
 /platforms returns duplices & old platforms, lists/parents has the top ones.
 .get<FetchResponse<Platform>>("/platforms/lists/parents")
+
+
+
+---excercise 3 - fetching games:---
+This one is slightly more complex, with the inclusion of queryParams in the getGames call.
+Spent some time analyzing the useData hook, and 90% of this code is features included in reacty query hook.
+
+Where to put DEPS?
+The previous useData had a ...deps array in the useEffect. This was used to track changes to the filter state, and re run when needed.
+This is no longer needed as the APP.tsx stores gameQuery in state, and passes as input, which will trigger change to gameGrid & network call.
+
+function App() {
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
+
+in GameGrid
+  const { data, error, isLoading } = useGames(gameQuery);
+
+
+Bug:
+Previous the params were set to "platforms", and when clicking playstaion nothing shows up. 
+The correct parent_platforms, which matches our changes in usePlatform hook ("/platforms/lists/parents")
+
+   return apiClient
+    .get<FetchResponse<Game>>("/games", {
+      params: {
+        genres: gameQuery.genre?.id,
+        parent_platforms: gameQuery.platform?.id, //moshes fix (parent_platforms not platform)
+        ordering: gameQuery.sortOrder,
+        search: gameQuery.searchText,
+      },
+    })
+    .then((res: any) => res.data);
