@@ -811,3 +811,7 @@ The correct parent_platforms, which matches our changes in usePlatform hook ("/p
       },
     })
     .then((res: any) => res.data);
+
+
+---excercise - removing platform:---
+remove the duplicate platorm and now other references.
