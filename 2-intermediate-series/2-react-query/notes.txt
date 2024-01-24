@@ -815,3 +815,19 @@ The correct parent_platforms, which matches our changes in usePlatform hook ("/p
 
 ---excercise - removing platform:---
 remove the duplicate platorm and now other references.
+
+
+---excercise - reuseable API client:---
+The data fetching logic has been duplicated in a few places, namely:
+getGenres
+getGames
+getPlatforms
+
+const getGenres = () => {
+  return apiClient
+    .get<FetchResponse<Genre>>("/genres")
+    .then((res: any) => res.data);
+};
+
+we could remove all this code with a simple queryFn = service.get
+And let the service handle the URL & object types etc.
