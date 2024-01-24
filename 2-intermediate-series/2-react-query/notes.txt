@@ -831,3 +831,12 @@ const getGenres = () => {
 
 we could remove all this code with a simple queryFn = service.get
 And let the service handle the URL & object types etc.
+
+
+
+---Implementing infinite queries:---
+So lets get cracking adding infinite query.
+
+-update toUseInifiteQuery
+-provide getNextPage logic (RAWG has next or undefined)
+-update component to iterate over pages instead of data.
