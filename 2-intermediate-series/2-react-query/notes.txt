@@ -887,3 +887,13 @@ tasks:
 -do the same change for platforms, just platformId.
 -fix broken platorm title, it got genre & platform name from query object. try usePlatforms hook
 find platform for given id, then we can render names again.
+
+
+
+---excercise - creating  lookup hooks:---
+So we need to create a lookups hook that encapsulates all the genre & platform data in one place.
+This will be used across the board in PlatformSelector, SortSelector & GameHeading
+
+-extract platform Logic to usePlatform
+-extrace genre logic to useGenres
+-update components
