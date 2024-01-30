@@ -11,3 +11,89 @@ We will learn:
 -when to use react context vs state management libraries
 -react context vs redux
 -managing application state using zustand
+
+
+---consolidating state logic with a reducer:---
+
+What is a reducer?
+A function that allows us to centralize state updates in a component.
+
+Example:
+We have the counter component, which updates state & resets it, fairly simple.
+What if we want to modify this counter elsewhere? we need a reducer to manage the state.
+const Counter = () => {
+  const [value, setValue] = useState(0);
+
+  return (
+    <div>
+      Counter ({value})
+      <button
+        onClick={() => setValue(value + 1)}
+        className="btn btn-primary mx-1"
+      >
+        Increment
+      </button>
+      <button
+        onClick={() => setValue(0)}
+        className="btn btn-primary mx-1"
+      >
+        Reset
+      </button>
+    </div>
+  );
+};
+
+
+
+task 1 - create a reducer function:
+-create reducers folder
+-create counterReducer.ts file
+-by convention a reducer takes a STATE & ACTION as parameters.
+-perform the action as specified.
+-return something.
+
+const counterReducer = (state: number, action: Action): number => {
+  if (action.type === "INCREMENT") return state + 1;
+  if (action.type === "RESET") return 0;
+  return state;
+  //OR
+  throw new Error("Action is not supported");
+  //OR we only allow INCREMENT or RESET
+  // specificType: "INCREMENT" | "RESET";
+};
+
+What happens if the wrong action is passed?
+either we return the state anyway.
+throw an Error
+or limit the ACTIONS using STRING LITERAL TYPES.
+
+
+
+task 2 - update component:
+-instead of useState we have useReducer.
+-this takes a reducer function & inital value.
+-this returns a value(state) and dispatch function, to be called to invoke an action.
+  //const [value, setValue] = useState(0);
+
+  const [value, dispatch] = useReducer(counterReducer, 0);
+
+
+task 3 - add dispatch functions to buttons.
+    <div>
+      Counter ({value})
+      <button
+        onClick={() => dispatch({ type: "INCREMENT" })}
+        className="btn btn-primary mx-1"
+      >
+        Increment
+      </button>
+      <button
+        onClick={() => dispatch({ type: "RESET" })}
+        className="btn btn-primary mx-1"
+      >
+        Reset
+      </button>
+
+
+So the handy part now is the component knows nothing about state, a clear seperation of concerns with this approach.
+In the next section we'll look at complex actions.
