@@ -97,3 +97,81 @@ task 3 - add dispatch functions to buttons.
 
 So the handy part now is the component knows nothing about state, a clear seperation of concerns with this approach.
 In the next section we'll look at complex actions.
+
+
+---Creating Complex Actions:---
+Oftentimes our actions will be more complex, and require passing in data. how do we achieve that with reducers?
+Like this task list component, adding & deleting data.
+
+task 1 - create reducer function:
+const taskReducer = (): Task[] => {
+  switch (action.type) {
+    case "ADD":
+      return [action.task, ...tasks];
+    case "DELETE":
+      //note the compiler knows what properties are available for ADD & Delete, v cool.
+      return tasks.filter((t) => t.id !== action.taskId);
+  }
+};
+
+
+Task 2 - add an Action with a payload:
+We can use a payload to the action object with the data needed.
+-original method
+/*
+interface Action {
+  type: "ADD" | "DELETE";
+}
+*/
+
+-new method using payload
+-task has id & number
+export interface Task {
+  id: number;
+  title: string;
+}
+
+-addTask has a type & task payload
+export interface AddTask {
+  type: "ADD";
+  task: Task;
+}
+
+-delete only has the taskId
+export interface DeleteTask {
+  type: "DELETE";
+  taskId: number;
+}
+
+-create an object that consists of the AddTask OR Delete Task only, using union operator.
+type TaskAction = AddTask | DeleteTask;
+
+-pass to reducer like so.
+const taskReducer = (tasks: Task[], action: TaskAction): Task[] => {
+
+
+Task 3 - update component:
+-again replace state with reducer function.
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const [tasks, dispatch] = useReducer(taskReducer, []);
+
+
+-modify on click to dispatch the Action
+ <button
+        onClick={
+          () => {
+            dispatch({
+              type: "ADD",
+              task: { id: Date.now(), title: "Task " + Date.now() },
+            });
+          }
+          //setTasks([{ id: Date.now(), title: "Task " + Date.now() }, ...tasks])}
+        }
+        className="btn btn-primary my-3"
+      >
+        Add Task
+      </button>
+
+
+Test everything still works as before! Add & delete.
