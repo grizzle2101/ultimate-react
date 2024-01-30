@@ -1,0 +1,13 @@
+---Global State Management:---
+
+---Introduction:---
+In this section we'll explore many tools & techniques for managing state across the entire application,
+not just within individual components.
+
+
+We will learn:
+-consolidating state logic with a reducer (essential for any react developer)
+-sharing data using react context
+-when to use react context vs state management libraries
+-react context vs redux
+-managing application state using zustand
