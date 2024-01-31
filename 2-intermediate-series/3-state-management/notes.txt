@@ -263,3 +263,17 @@ Step Summary:
 2 - create a context
 3 - wrap components in context
 4 - useContext where needed.
+
+
+---Excercise:---
+Create a context for sharing the local user.
+Repeat the process as above, just this time we're Storing & sharing the user object.
+
+Only difference:
+Mosh created an AuthContext not a login context, makes a bit more sense as it will be doing more than login.
+
+Testing:
+Open chrome developer tools, then head over to the react dev tools components section.
+Now we can see the components and the contexts that wrap them to provider data.
+3 of them belong to react query, thats how it passes data around, and 2 are us.
+We can see the LoginContext & TasksContext, and see the data/objects contained in them.

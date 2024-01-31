@@ -10,17 +10,24 @@ import taskReducer from "./state-management/reducers/tasksReducer";
 import TasksContext from "./state-management/contexts/tasksContext";
 import NavBar from "./state-management/NavBar";
 import HomePage from "./state-management/HomePage";
+import LoginPage from "./routing/LoginPage";
+import loginReducer from "./state-management/reducers/loginReducer";
+import LoginContext from "./state-management/contexts/loginContext";
 
 function App() {
-  //step 1 - lift:
+  //1 - raise state
   const [tasks, dispatch] = useReducer(taskReducer, []);
+  const [user, authDispatch] = useReducer(loginReducer, "");
+  //2 - create context
+  //3 - wrap components in context
 
-  //step 3 - wrap components in context:
   return (
-    <TasksContext.Provider value={{ tasks, dispatch }}>
-      <NavBar />
-      <HomePage />
-    </TasksContext.Provider>
+    <LoginContext.Provider value={{ user, authDispatch }}>
+      <TasksContext.Provider value={{ tasks, dispatch }}>
+        <NavBar />
+        <HomePage />
+      </TasksContext.Provider>
+    </LoginContext.Provider>
   );
 }
 

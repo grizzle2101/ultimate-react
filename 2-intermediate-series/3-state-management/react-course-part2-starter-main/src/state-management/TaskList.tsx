@@ -1,12 +1,11 @@
 import { useContext, useReducer, useState } from "react";
 import taskReducer, { Task } from "./reducers/tasksReducer";
 import TasksContext from "./contexts/tasksContext";
+import LoginContext from "./contexts/loginContext";
 
 const TaskList = () => {
-  //const [tasks, dispatch] = useReducer(taskReducer, []);
-
-  //step 4 - get access through context:
   const { tasks, dispatch } = useContext(TasksContext);
+  const { user } = useContext(LoginContext);
 
   return (
     <>
@@ -14,7 +13,7 @@ const TaskList = () => {
         onClick={() => {
           dispatch({
             type: "ADD",
-            task: { id: Date.now(), title: "Task " + Date.now() },
+            task: { id: Date.now(), title: "Task " + Date.now(), user },
           });
         }}
         className="btn btn-primary my-3"
@@ -27,7 +26,9 @@ const TaskList = () => {
             key={task.id}
             className="list-group-item d-flex justify-content-between align-items-center"
           >
-            <span className="flex-grow-1">{task.title}</span>
+            <span className="flex-grow-1">
+              {task.title} - Creator: {task.user || "n/a"}
+            </span>
             <button
               className="btn btn-outline-danger"
               onClick={() => {

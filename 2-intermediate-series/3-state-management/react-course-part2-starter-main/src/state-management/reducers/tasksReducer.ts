@@ -6,6 +6,7 @@ interface Action {
 export interface Task {
   id: number;
   title: string;
+  user: string;
 }
 
 //Attatching payload using the interface
