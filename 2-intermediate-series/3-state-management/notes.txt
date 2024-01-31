@@ -175,3 +175,91 @@ Task 3 - update component:
 
 
 Test everything still works as before! Add & delete.
+
+
+
+---excercise:---
+implment a reducer for Login component.
+
+
+
+---Sharing state using react context:---
+So far we talked about sharing state between components, in our application we might want to
+share tasks or shopping cart items, but how do we do it?
+
+First Step - Sharing State:
+Lift the state up to the closest parents and pass it down to child components.
+
+Our application:
+app
+homepage
+navbar
+tasklist
+
+Storing state in the app is fine, except the hompage sits between the app and navbar component.
+Using the homepage to pass the state through it called prop drilling.
+I.e we're drilling through a component to get to another.
+
+React Context:
+React Context allows sharing of data without passing it down through many components in the middle.
+Giving us cleaner & more maintainable code.
+
+Task 1 - Lift State:
+function App() {
+  const [tasks, dispatch] = useReducer(taskReducer, []);
+
+
+Task 2 - create context:
+-first step is to define the shape of the data. - tasks & dispatch a TaskAction.
+interface TasksContextType {
+  tasks: Task[];
+  dispatch: Dispatch<TaskAction>;
+}
+
+-then we create a Context using react.createContext.
+-we can set the initial value of state here, but 90% its empty.
+-we can use null TasksContextType | null>(null) or like below.
+-export the context
+
+const TasksContext = React.createContext<TasksContextType>(
+  {} as TasksContextType
+);
+
+export default TasksContext;
+
+
+step 3 - wrap components in context:
+So to use context properly, we need to wrap the components within our TasksContext.
+-provide an initial value & function here, the state declared above.
+
+  const [tasks, dispatch] = useReducer(taskReducer, []);
+
+  return (
+    <TasksContext.Provider value={{ tasks, dispatch }}>
+      <NavBar />
+      <HomePage />
+    </TasksContext.Provider>
+
+
+step 4 - use context:
+ const { tasks, dispatch } = useContext(TasksContext);
+
+
+
+Take Home:
+We've provided the ability to pass data to any components WITHOUT prop drilling.
+Even though homepage contains TaskList, we can still access the context, and so too can navbar
+      <NavBar />
+      <HomePage />
+
+Step Summary:
+-lift the state (useReducer(taskReducer)) to the highest parent component (app.tsx)
+-create a context, define the shape of the data.
+-create & export the context using React.createContext<TasksContextType> & our initial value.
+-wrap the components in the context using the state & dispatch <TasksContext.Provider value={{ tasks, dispatch }}>
+-access the context inside the child components - const { tasks, dispatch } = useContext(TasksContext);
+
+1 - lift the state
+2 - create a context
+3 - wrap components in context
+4 - useContext where needed.

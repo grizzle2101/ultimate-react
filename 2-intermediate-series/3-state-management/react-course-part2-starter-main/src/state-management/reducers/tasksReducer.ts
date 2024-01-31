@@ -20,7 +20,7 @@ export interface DeleteTask {
 }
 
 //union of either types
-type TaskAction = AddTask | DeleteTask;
+export type TaskAction = AddTask | DeleteTask;
 
 const taskReducer = (tasks: Task[], action: TaskAction): Task[] => {
   switch (action.type) {
