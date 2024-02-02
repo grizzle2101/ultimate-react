@@ -277,3 +277,41 @@ Open chrome developer tools, then head over to the react dev tools components se
 Now we can see the components and the contexts that wrap them to provider data.
 3 of them belong to react query, thats how it passes data around, and 2 are us.
 We can see the LoginContext & TasksContext, and see the data/objects contained in them.
+
+
+
+---Creating a custom provider:---
+So currently we're keeping track of 2 states, the user & tasks.
+We can improve this code by moving it into a custom provider.
+
+
+task 1 - extract state to provider.
+const AuthProvider = ({ children }: Props) => {
+  const [user, dispatch] = useReducer(loginReducer, "");
+
+  return (
+    <AuthContext.Provider value={{ user, dispatch }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+task 2 - pass in children props, so we can wrap.
+interface Props {
+  children: ReactNode;
+}
+
+
+
+task 3 - Usage:
+  return (
+    <AuthProvider>
+      <TasksContext.Provider value={{ tasks, dispatch }}>
+        <NavBar />
+        <HomePage />
+      </TasksContext.Provider>
+    </AuthProvider>
+  );
+}
+
+So now the AuthContext is much more reuseable & modular, if we want to use this in other parts of the App its a simple change.

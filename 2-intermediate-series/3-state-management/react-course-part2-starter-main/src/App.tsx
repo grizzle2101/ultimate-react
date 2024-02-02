@@ -12,22 +12,20 @@ import NavBar from "./state-management/NavBar";
 import HomePage from "./state-management/HomePage";
 import LoginPage from "./routing/LoginPage";
 import loginReducer from "./state-management/reducers/loginReducer";
-import LoginContext from "./state-management/contexts/loginContext";
+import AuthContext from "./state-management/contexts/authContext";
+import AuthProvider from "./state-management/AuthProvider";
 
 function App() {
-  //1 - raise state
   const [tasks, dispatch] = useReducer(taskReducer, []);
-  const [user, authDispatch] = useReducer(loginReducer, "");
-  //2 - create context
-  //3 - wrap components in context
 
+  //task 3 - wrap in provider.
   return (
-    <LoginContext.Provider value={{ user, authDispatch }}>
+    <AuthProvider>
       <TasksContext.Provider value={{ tasks, dispatch }}>
         <NavBar />
         <HomePage />
       </TasksContext.Provider>
-    </LoginContext.Provider>
+    </AuthProvider>
   );
 }
 
