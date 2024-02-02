@@ -315,3 +315,30 @@ task 3 - Usage:
 }
 
 So now the AuthContext is much more reuseable & modular, if we want to use this in other parts of the App its a simple change.
+
+
+
+---Creating a custom context hook:---
+Just as we can create a custom provider, we can also create a custom hook to access context.
+React query uses this exact sane pattern, useQueryClient to access the context & its data.
+
+
+step 1 - create authContext hook:
+-export the useContext configured to use AuthContext.
+
+import { useContext } from "react";
+import AuthContext from "../contexts/authContext";
+
+const useAuth = () => useContext(AuthContext);
+
+export default useAuth;
+
+
+
+step 2 - usage:
+So in the loginStatus component, to access the context we dont need to import context & specify auth context,
+we have a single import to useAuth & voila all done.
+import useAuth from "./hooks/useAuth";
+
+const LoginStatus = () => {
+  const { user, dispatch } = useAuth();

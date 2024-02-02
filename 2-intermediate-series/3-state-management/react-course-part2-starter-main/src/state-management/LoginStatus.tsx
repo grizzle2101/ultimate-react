@@ -1,10 +1,7 @@
-import { useContext, useReducer } from "react";
-import loginReducer from "./reducers/loginReducer";
-import AuthContext from "./contexts/authContext";
+import useAuth from "./hooks/useAuth";
 
 const LoginStatus = () => {
-  //4 - use
-  const { user, dispatch: authDispatch } = useContext(AuthContext);
+  const { user, dispatch } = useAuth();
 
   if (user)
     return (
@@ -13,7 +10,7 @@ const LoginStatus = () => {
           <span className="mx-2">{user}</span>
           <a
             onClick={() => {
-              authDispatch({ type: "LOGOUT" });
+              dispatch({ type: "LOGOUT" });
             }}
             href="#"
           >
@@ -26,7 +23,7 @@ const LoginStatus = () => {
     <div>
       <a
         onClick={() => {
-          authDispatch({ type: "LOGIN", userName: "Mosh" });
+          dispatch({ type: "LOGIN", userName: "Mosh" });
         }}
         href="#"
       >
