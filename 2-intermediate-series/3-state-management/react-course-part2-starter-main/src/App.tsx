@@ -14,17 +14,15 @@ import LoginPage from "./routing/LoginPage";
 import loginReducer from "./state-management/reducers/loginReducer";
 import AuthContext from "./state-management/contexts/authContext";
 import AuthProvider from "./state-management/AuthProvider";
+import TasksProvider from "./TasksProvider";
 
 function App() {
-  const [tasks, dispatch] = useReducer(taskReducer, []);
-
-  //task 3 - wrap in provider.
   return (
     <AuthProvider>
-      <TasksContext.Provider value={{ tasks, dispatch }}>
+      <TasksProvider>
         <NavBar />
         <HomePage />
-      </TasksContext.Provider>
+      </TasksProvider>
     </AuthProvider>
   );
 }

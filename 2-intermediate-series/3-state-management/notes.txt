@@ -342,3 +342,12 @@ import useAuth from "./hooks/useAuth";
 
 const LoginStatus = () => {
   const { user, dispatch } = useAuth();
+
+
+
+---Excercise:---
+So we've learned about creating a custom provider to simplfy context, and a hook to access it.
+Lets do that now for the TasksContext.
+
+-create tasksProvider to manage context creation & sharing.
+-create tasksHooh to provide access to state in diff components
