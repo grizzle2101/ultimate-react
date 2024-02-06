@@ -401,3 +401,21 @@ By extracting all our code into a module now, it means any future changes dont a
 If we change our state implementation, reducers or using a state management libary the consumers interface does not change.
 
 
+---Excercise:---
+Do the same for Login, extract it all!
+
+
+task 1 - extract all to folder.
+task 2 - combine files where neccessary
+-reducer into provider
+-hook into components
+
+task 3 - modify components:
+const useAuth = () => useContext(AuthContext);
+
+const LoginStatus = () => {
+  const { user, dispatch } = useAuth();
+
+task 4 - expose context?
+With the previous lecture all context was used in the tasks folder, however we are sharing login data with taskList,
+so we need to expose it for use.
