@@ -351,3 +351,53 @@ Lets do that now for the TasksContext.
 
 -create tasksProvider to manage context creation & sharing.
 -create tasksHooh to provide access to state in diff components
+
+
+
+---Organizing code for Scalability & maintainability:---
+So in our code base we have a structure like this.
+contexts
+hooks
+reducers
+2 components.
+
+They are seperate, but related. If only there was a way to package them togther like a module or package.
+
+Benefits:
+modular
+scaleable
+maintainable
+
+task 1 - extract to common folder:
+So lets start by moving everything to do with tasks, into a tasks folder.
+
+decide whats public:
+We will have the public interface & private implementation detail.
+For the public, we only need to expose the TaskList component & the provider.
+
+- reduce imports:
+The taskReducer is only used in the taskProvider, so we can extract & delete that file.
+-extract taskReducer code into tasksProvider.
+
+task 2 - extrct useTasks Hook:
+So the useTasks hook is realistically only used in the TaskList component.
+
+
+task 3 - create index file:
+-we need to import the components to be exposed.
+-then export them accordingly.
+import TasksProvider from "./TasksProvider";
+import TaskList from "./TaskList";
+
+export { TasksProvider };
+
+-can also do it on a single line.
+export { default as TasksProvider } from "./TasksProvider";
+export { default as TaskList } from "./TaskList";
+
+
+Take Home:
+By extracting all our code into a module now, it means any future changes dont affect the rest of the project.
+If we change our state implementation, reducers or using a state management libary the consumers interface does not change.
+
+
