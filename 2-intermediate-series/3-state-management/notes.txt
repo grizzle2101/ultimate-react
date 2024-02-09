@@ -470,3 +470,43 @@ Many of these tools exist, such as:
 -zustand
 
 later in this section we'll be going over zustand, the easiest of these state management libraries.
+
+
+---Context V redux:---
+What is redux?
+redux is a widely used state management library for javascript. It provides a centralized store for the application state.
+This means we dont have to pass data via props, or drill through component to pass shared data.
+
+Redux stores the state, whereas context is just a mechanism to transport state to different components.
+Value being the data, and provider being the transport mechanism.
+
+Does context replace redux?
+Both context & redux allow us to share state, but redux offers a few key differences.
+It can be used to do things like
+-cache the server State
+-persist it in local storage
+-components can select certain pieces of state
+-undo things
+-use middleware and log actions
+-decouple from react
+-see state changes over time (using redux dev tools)
+
+If these features are genuine requirments of your application, then perhaps redux is the right choice for you!
+But in many cases it can be overkill, we have to deal with.
+
+-store
+-actions
+-reducers
+-dispatch
+-middleware
+-selectors
+-trunks
+-sage and SO ON.
+
+react query is a good alternative, where we only have to learn about queries & mutations.
+
+What about the client state?
+Once we use react query to handle the data fetching, we have very little to do in the client state.
+We define local state & share it with context.
+If it gets too complicated we can use a reducer.
+Or even use a simpler state management tool like zustand.
