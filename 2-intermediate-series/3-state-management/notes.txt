@@ -436,3 +436,37 @@ Tasks   AuthContext
 Note:
 split up a context into smaller and focuses on having a single resposibility.
 Use the right tools for the right job.
+
+
+---When to use Context:---
+Every react application has some state/data that needs to be shared between components.
+This can be either
+-server state - data fetched from backend
+-client UI state - current user, theme, filters etc
+
+Server state:
+We should avoid storing data in React Context as this will quickly get out of hand.
+In the gameHub app we would have Genres, Platforms, Games, Tags, Publishers, Creators & so on.
+React Query is specifically designed for this, and we we attempted to duplicate some of the features we'd be spinning off a whole new project.
+In our TaskList application, tasks would typlically be fetched from the backend, so there is no need to store this in the context.
+(that was just an excercise.)
+
+
+Client State:
+For managing client state we should NOT be using React Query, but instead local state + react context.
+useState
+useReducer
+If our code is complex and needed in many places, we can centralize the code in a reducer function.
+
+
+Note:
+There are some scenarios where splitting up the context does not make sense, and we want to avoid additional re-renders.
+This is where a state management tool might come into play, we could watch a certain part of the context.
+Many of these tools exist, such as:
+-redux
+-mobx
+-recoil
+-xstate
+-zustand
+
+later in this section we'll be going over zustand, the easiest of these state management libraries.
