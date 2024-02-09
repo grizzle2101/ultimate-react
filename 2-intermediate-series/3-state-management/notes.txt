@@ -419,3 +419,20 @@ const LoginStatus = () => {
 task 4 - expose context?
 With the previous lecture all context was used in the tasks folder, however we are sharing login data with taskList,
 so we need to expose it for use.
+
+
+---Splitting Context for Effciency:---
+One thing to know about react context is that everytime it changes, ALL components that use it rerender.
+
+Note:
+A context should only hold values that are closely related and tend to change togther.
+
+
+In the case of our application, the navbar will re-render on changes to either tasks or login.
+We could move Tasks & AuthContext into a Global context according to the above principal but again we'll have the same problem.
+Tasks   AuthContext
+    NavBar
+
+Note:
+split up a context into smaller and focuses on having a single resposibility.
+Use the right tools for the right job.
