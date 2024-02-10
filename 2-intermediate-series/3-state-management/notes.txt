@@ -568,3 +568,12 @@ Take home for using Zustand:
 -define shape of data
 -create the store & export
 -use the store & built in hooks to share state anywhere needed
+
+
+---Excercise - working with zustand:---
+Share & manage the user state using Zustand.
+
+AGAIN
+-define shape of data
+-create the store & export
+-use the store & built in hooks to share state anywhere needed
