@@ -510,3 +510,61 @@ Once we use react query to handle the data fetching, we have very little to do i
 We define local state & share it with context.
 If it gets too complicated we can use a reducer.
 Or even use a simpler state management tool like zustand.
+
+
+
+---Managing Application state with Zustand:---
+So lets implement the zustand store to manage our application state.
+
+
+task 1 - install zustand:
+npm install zustand@4.3.7
+
+task 2 - create store:
+-create store.ts file
+-define interface for shape of data.
+interface CounterStore {
+    counter: number;
+    incrment: () => void;
+    reset: () => void;
+}
+
+task 3 - invroke zustand.create
+-create will define the object we require in storage, so long as we provide the value & functions needed.
+-expore the resulting store to be used in components.
+//use create to provide the data, and functions to increment & reset the store.
+//save & export the result 
+const useCounterStore = create<CounterStore>(set => ({
+    counter: 0,
+    incrment: () => set((store) => ({counter: store.counter + 1})),
+    reset: () => set(() => ({counter: 0}))
+}))
+
+
+export default useCounterStore;
+
+
+
+task 4 - update component:
+so now we can replace the counterReducer with our counterStore.
+
+  //const [value, dispatch] = useReducer(counterReducer, 0);
+  const {counter, incrment, reset} = useCounterStore()
+
+
+
+task 5 - share with other components:
+Now we can use the built in hooks to share state with other components no bother.
+-simply useCounterStore & voila we can share state anywhere we need it.
+  const {counter} = useCounterStore();
+
+
+Advantages:
+We have all the logic for managing the state in single place. We dont need a context for storage, a provider to transport data, a custom
+hook to read that state elsewhere, a reducer or even any redux nonsense.
+
+
+Take home for using Zustand:
+-define shape of data
+-create the store & export
+-use the store & built in hooks to share state anywhere needed
