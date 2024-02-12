@@ -5,11 +5,12 @@ const Counter = () => {
 
   //we can replace the reducer with Zustand now.
   //const [value, dispatch] = useReducer(counterReducer, 0);
-  const {counter, incrment, reset} = useCounterStore();
+  const {counter, max, incrment, reset} = useCounterStore();
 
   return (
     <div>
       Counter ({counter})
+      MAX ({max})
       <button
         onClick={() => incrment()}
         className="btn btn-primary mx-1"

@@ -3,6 +3,7 @@ import { create } from "zustand";
 //1 - create interface to define the shape of our data.
 interface CounterStore {
     counter: number;
+    max: number;
     incrment: () => void;
     reset: () => void;
 }
@@ -11,8 +12,9 @@ interface CounterStore {
 //save & export the result 
 const useCounterStore = create<CounterStore>(set => ({
     counter: 0,
+    max: 5,
     incrment: () => set((store) => ({counter: store.counter + 1})),
-    reset: () => set(() => ({counter: 0}))
+    reset: () => set(() => ({max: 10}))
 }))
 
 

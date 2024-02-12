@@ -577,3 +577,44 @@ AGAIN
 -define shape of data
 -create the store & export
 -use the store & built in hooks to share state anywhere needed
+
+
+
+---Preventing unnecessary renders with selectors:---
+So to prevent unnecessary renders, we can specify the values we want to look out for.
+
+
+Step 1 - Add Max Property:
+-add the property, and provide a function to update it.
+interface CounterStore {
+    counter: number;
+    max: number;
+    incrment: () => void;
+    reset: () => void;
+}
+
+
+const useCounterStore = create<CounterStore>(set => ({
+    counter: 0,
+    max: 5,
+    incrment: () => set((store) => ({counter: store.counter + 1})),
+    reset: () => set(() => ({max: 10}))
+}))
+
+
+Step 2 - update component to show its rendering:
+Say we want the nav bar to update when a user gets a notification, we do want to triggera render.
+But not every time we increment the counter.
+
+const NavBar = () => {
+  const {counter} = useCounterStore();
+  console.log('rendering nav...')
+  {counter}
+
+Result:
+in this case, were subscribing to ANY change in the counter store, we need to be more specific.
+
+
+The solution:
+We can pass an arrow function, to select the neccessary value & voila, only re-renders when we click reset.
+  const counter = useCounterStore((s) => s.counter);

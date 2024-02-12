@@ -7,6 +7,7 @@ import { TasksProvider } from "./state-management/tasks";
 function App() {
   return (
       <TasksProvider>
+        <Counter />
         <NavBar />
         <HomePage />
       </TasksProvider>
