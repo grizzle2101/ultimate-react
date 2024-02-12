@@ -618,3 +618,28 @@ in this case, were subscribing to ANY change in the counter store, we need to be
 The solution:
 We can pass an arrow function, to select the neccessary value & voila, only re-renders when we click reset.
   const counter = useCounterStore((s) => s.counter);
+
+
+
+---Inspecting Stores with Zustand:---
+Sometimes when things aren't working, we'll want to take a look at our zustand stores.
+There is a handy library for that.
+
+
+step 1 - install:
+npm install simple-zustand-devtools@1.1.0
+
+
+step 2 - mount dev tools:
+add a small section in the store, check if we're in development mode then create the store for debugging.
+
+if(process.env.NODE_ENV === 'development')
+    mountStoreDevtool('Counter Store', useCounterStore);
+
+
+step 3 - usage:
+if we inspect > chrome dev tools > components
+finally we can see the Counter Store object we created and the values!
+
+Take Home:
+we can now inspect the store data!

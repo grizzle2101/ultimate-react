@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { mountStoreDevtool } from "simple-zustand-devtools";
+
 
 //1 - create interface to define the shape of our data.
 interface CounterStore {
@@ -17,5 +19,7 @@ const useCounterStore = create<CounterStore>(set => ({
     reset: () => set(() => ({max: 10}))
 }))
 
+if(process.env.NODE_ENV === 'development')
+    mountStoreDevtool('Counter Store', useCounterStore);
 
 export default useCounterStore;
