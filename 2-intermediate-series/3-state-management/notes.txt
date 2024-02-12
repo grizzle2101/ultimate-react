@@ -643,3 +643,22 @@ finally we can see the Counter Store object we created and the values!
 
 Take Home:
 we can now inspect the store data!
+
+
+
+
+---Excercise:---
+Lets see if we can use what we learned to cleanup the gamehub application!
+What state management solution shall we go with?
+
+replace useState with a store!
+We can see many instances of prop drilling using props to pass gameQuery around.
+We also see complex logic for updating the gameQuery genres, platform etc that could be better centralized in a reducer.
+
+Finally we could use react context to store this data, but sharing the same data object with so many components will cause lots of unnecessary re-renders,
+so the zustand approach of selectors will make the app much more performant and stable.
+
+
+Task 1 - Create a Zustand Store - done
+
+Task 2 - Replace props:
