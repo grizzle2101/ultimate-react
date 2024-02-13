@@ -4,8 +4,11 @@ import { GameQuery } from "../App";
 import { GAME_CACHE_KEY } from "../constants";
 import { FetchResponse } from "../services/api-client";
 import gameService, { Game } from "../services/game-service";
+import useGameQueryStore from "../store";
 
-const useGames = (gameQuery: GameQuery) => {
+const useGames = () => {
+  const gameQuery = useGameQueryStore(s => s.gameQuery);
+
   return useInfiniteQuery<FetchResponse<Game>, Error>({
     queryKey: [GAME_CACHE_KEY, gameQuery],
     queryFn: ({ pageParam = 1 }) =>

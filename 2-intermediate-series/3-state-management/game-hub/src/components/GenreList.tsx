@@ -12,13 +12,14 @@ import {
 import useGenres from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 import { Genre } from "../services/genre-service";
+import useGameQueryStore from "../store";
 
-interface Props {
-  onSelectGenre: (genreId: number) => void;
-  selectedGenre: number;
-}
 
-const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
+
+const GenreList = () => {
+  const selectedGenre = useGameQueryStore(s => s.gameQuery.genreId);
+  const onSelectGenre = useGameQueryStore(s => s.setGenreId);
+
   const { data, isLoading, error } = useGenres();
 
   if (error) return null;

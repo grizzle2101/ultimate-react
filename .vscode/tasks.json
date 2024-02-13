@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "2-intermediate-series/3-state-management/game-hub",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build - 2-intermediate-series/3-state-management/game-hub",
+			"detail": "tsc && vite build"
+		}
+	]
+}

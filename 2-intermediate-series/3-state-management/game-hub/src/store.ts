@@ -1,3 +1,4 @@
+import { mountStoreDevtool } from "simple-zustand-devtools";
 import { create } from "zustand";
 
 export interface GameQuery {
@@ -23,6 +24,9 @@ const useGameQueryStore = create<GameQueryStore>(set => ({
     setPlatformId: (platformId: number) => set(store => ({gameQuery: {...store.gameQuery, platformId}})),
     setSortOrder: (sortOrder: string) => set(store => ({gameQuery: {...store.gameQuery, sortOrder}})),
 }))
+
+if(process.env.NODE_ENV === 'development')
+    mountStoreDevtool('GameHub Store', useGameQueryStore);
 
 //note - by only specifying one value in game query, the others are wiped out.
 
