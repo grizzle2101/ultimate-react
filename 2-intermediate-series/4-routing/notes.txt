@@ -74,3 +74,35 @@ Say we want to send users to different locations based on a form, we can also do
 Take Home:
 We can use Link to switch pages without a reload, or use navigate(URL)
 to Programatically navigate.
+
+
+
+---Passing Data with Route Parameters:---
+So we want to be able to have a user page, the first step is to allow dynamic routes, then we can route accordingly.
+
+
+Task 1 - Add Route with Query Param:
+This will allow the users/1 route
+-So we use :id to specify a dynamic value on a route.
+-we can also do :year:month or anything else we need.
+{path: '/users/:id', element: <UserDetailPage />},
+{path: '/posts/:year/:month', element: <UserListPage />},
+
+
+Task 2 - Update navigation:
+Next we build the logic to link to a dynamic page, based on the userId.
+ <ul className="list-group">
+      {users.map((user) => (
+        <li className="list-group-item" key={user.id}>
+          <Link to={`/users/${user.id}`}>{user.name}</Link>
+        </li>
+      ))}
+    </ul>
+
+Note:
+In previous versions of react router, we had to order our routes from most specific to least.
+However is version 6, its smart enough to figure that out for us.
+
+
+Result:
+We have a dynamic route users/1, next we're going to look at getting data from the route in order to load the user data.
