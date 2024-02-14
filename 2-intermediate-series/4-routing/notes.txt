@@ -42,3 +42,35 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 
 Result:
 Now we have a homepage, and a users page.
+
+
+
+---Navigation:---
+The problem with anchor tags, is that we get a full page reload on clicking of a link.
+We want to swap out the innter content, without triggering a reload.
+
+
+Hard Link:
+The link attribute is included with react router, it has access to the userList component as its already shipped to the client.
+So we dont have to do that annoying reload.
+-to = target url
+ <Link to="/users">Users</Link>
+      <br />
+ <a href="/users">Users</a>
+
+
+Programatically Link:
+Say we want to send users to different locations based on a form, we can also do this with react router.
+-navigate(URL) and voila we return to the homepage
+
+     <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        // Redirect the user to the home page
+        navigate('/');
+      }}
+
+
+Take Home:
+We can use Link to switch pages without a reload, or use navigate(URL)
+to Programatically navigate.
