@@ -106,3 +106,53 @@ However is version 6, its smart enough to figure that out for us.
 
 Result:
 We have a dynamic route users/1, next we're going to look at getting data from the route in order to load the user data.
+
+
+
+---Getting Data from the Current Route:---
+So we have a number of hooks for getting data out of our route, lets take a look.
+
+
+Method 1 - useParams:
+-this will only get the first set of params. (ID)
+  const params = useParams(); 
+
+http://localhost:5173/users/3?name=alice&age=32
+
+
+Method 2 - useSearchParam:
+useSearchParams will return us a searchParams object & a function to set them,  much like a state hook.
+  const [searchParams, setSearchParams] = useSearchParams()
+  console.log('searchParams - ', searchParams.toString());
+
+If we want to get a specific part of the route, we can use a dictionary key like so
+  console.log('name - ', searchParams.get('name'));
+
+
+note:
+We want to be very careful when setting route parameters, as there will be knock on effects.
+eg changing a route triggers infinite reload etc.
+So only try use them inside event handlers & useEffect hooks.
+
+
+Method 3 - useLocation:
+  const location = useLocation();
+  console.log('location - ', location);
+
+
+result:
+hash
+: 
+""
+key
+: 
+"default"
+pathname
+: 
+"/users/3"
+search
+: 
+"?name=alice&age=32"
+state
+: 
+null
