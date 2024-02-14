@@ -8,3 +8,37 @@ You'll learn:
 -dynamic routes
 -nested routes
 -private routes
+
+
+
+---Setting up Routing:---
+So to setup routes in the application we'll need to download react router, configure & bootstrap it into the app.
+
+Task 1 - install react router:
+npm install react-router-dom@6.10.0
+
+
+Task 2 - Configure router:
+So just like in Angular, we have an array of route objects with path & components to be used at that route.
+const router = createBrowserRouter([
+    {path: '/', element: <HomePage />},
+    {path: '/users', element: <UserListPage />}
+]);
+
+
+export default router;
+
+
+Task 3 - Initialize Router Context in main.tsx
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <App />
+      <ReactQueryDevtools />
+    </QueryClientProvider>
+  </React.StrictMode>
+);
+
+
+Result:
+Now we have a homepage, and a users page.
