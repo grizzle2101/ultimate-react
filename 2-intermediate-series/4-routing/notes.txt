@@ -1,0 +1,10 @@
+---Routing with React Router:---
+In this section we'll go over routing, which is a way for allowing a user to go from one page to another using React Router.
+
+You'll learn:
+-setting up routes
+-handling errors
+-navigating between pages
+-dynamic routes
+-nested routes
+-private routes
