@@ -207,3 +207,17 @@ We have a traditional route based web app, with nested routes.
 We want to implement a master detail page.
 When we click on a user in the list, we get a tiny page with the user info off to the side.
 
+
+
+---Styling the Active Link:---
+This is a quick one.
+
+If we update the Link element to NAVLINK, we get the active class applied automatically.
+        <NavLink to='/' className="nav-link">
+
+
+Another Option:
+If we want to apply our own custom class, we can destructure the isActive property & return new classes.
+        <NavLink to='/'  className={({isActive}) => isActive ? 'active nav-link': 'nav-link'} >
+          My App
+        </NavLink>
