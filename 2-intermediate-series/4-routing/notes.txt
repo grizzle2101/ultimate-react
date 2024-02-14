@@ -200,3 +200,10 @@ We need to make sure the Homepage & Users are configured correctly.
 
 Result:
 We have a traditional route based web app, with nested routes.
+
+
+
+---Excercise:---
+We want to implement a master detail page.
+When we click on a user in the list, we get a tiny page with the user info off to the side.
+
