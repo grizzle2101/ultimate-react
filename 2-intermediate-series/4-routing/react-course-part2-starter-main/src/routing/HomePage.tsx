@@ -8,8 +8,6 @@ const HomePage = () => {
         Incidunt, mollitia!
       </p>
       <Link to="/users">Users</Link>
-      <br />
-      <a href="/users">Users</a>
     </>
   );
 };

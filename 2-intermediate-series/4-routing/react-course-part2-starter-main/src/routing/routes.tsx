@@ -3,13 +3,14 @@ import HomePage from "./HomePage";
 import UserListPage from "./UserListPage";
 import ContactPage from "./ContactPage";
 import UserDetailPage from "./UserDetailPage";
+import Layout from "./Layout";
 
 const router = createBrowserRouter([
-    {path: '/', element: <HomePage />},
+    {path: '/', element: <Layout />, children: [
+    {index: true, element: <HomePage />}, //index = true, means this homepage.
     {path: '/users', element: <UserListPage />},
     {path: '/users/:id', element: <UserDetailPage />},
-    //{path: '/posts/:year/:month', element: <UserListPage />},
-    //{path: '/contact', element: <ContactPage />}
+    ]}, 
 ]);
 
 

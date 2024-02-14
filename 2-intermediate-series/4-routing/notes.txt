@@ -156,3 +156,47 @@ search
 state
 : 
 null
+
+
+
+---Nested routes:---
+In the real world a user will go on a complex journey or nested routes, how do we achieve this with react router?
+
+
+Task 1 - Place router outlet:
+An outlet is a container for any of the child components the route will return.
+
+const Layout = () => {
+  return (
+    <>
+      <NavBar />
+      <div id="main">
+        <Outlet />
+      </div>
+    </>
+  );
+};
+
+
+Task 2 - Configure routes:
+We need to update the router to nest all the routes inside the Layout component.
+-index = true or path='' just mean this is the default route/component.
+
+const router = createBrowserRouter([
+    {path: '/', element: <Layout />, children: [
+    {index: true, element: <HomePage />}, //index = true, means this homepage.
+    {path: '/users', element: <UserListPage />},
+    {path: '/users/:id', element: <UserDetailPage />},
+    ]}, 
+]);
+
+
+Task 3 - Update Links:
+We need to make sure the Homepage & Users are configured correctly.
+        <Link to='/' className="nav-link">
+          My App
+        </Link>
+
+
+Result:
+We have a traditional route based web app, with nested routes.
