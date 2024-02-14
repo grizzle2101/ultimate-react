@@ -221,3 +221,34 @@ If we want to apply our own custom class, we can destructure the isActive proper
         <NavLink to='/'  className={({isActive}) => isActive ? 'active nav-link': 'nav-link'} >
           My App
         </NavLink>
+
+
+  
+---Handling Errors:---
+So far every route has worked, but what if it doesnt? How do we get a sick custom error page?
+
+
+
+Task 1 - update routes.ts:
+-use errorElement to specify a component to handle the errors
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <HomePage /> }, 
+
+
+
+Task 2 - display the Error:
+useRouteError will capture the error details & we can log as per normal.
+const ErrorPage = () => {
+  const error = useRouteError();
+  console.log("error - ", error);
+
+
+-we can differenciate between a route error and an application error using isRouteErrorResponse.
+{isRouteErrorResponse(error)
+          ? "Invalid Page"
+          : "Sorry, an unexpected error has occurred."}
