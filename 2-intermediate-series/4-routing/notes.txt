@@ -252,3 +252,30 @@ const ErrorPage = () => {
 {isRouteErrorResponse(error)
           ? "Invalid Page"
           : "Sorry, an unexpected error has occurred."}
+
+
+  
+---Private Routes:---
+So in the real world we want to restrict access to certain routes, to authenticated users only.
+How do we implement this?
+
+
+task 1 - create a authHook:
+const useAuth = () => ({ user: { id: 1, name: 'Mosh' } }); authorized
+const useAuth = () => ({ user: null }); not-authorized
+
+
+
+task 2 - add authHook to component:
+  const { user } = useAuth();
+  console.log("user - ", user);
+  if (!user) return <Navigate to="/login" />;
+
+
+task 3 - add login route:
+So when the redirect goes through, we need to make sure there is a configured route for it.
+      { path: "/login", element: <LoginPage /> },
+
+
+Note:
+This is not the advised implementmentation as it needs to be done on every component, and has needless overhead.
