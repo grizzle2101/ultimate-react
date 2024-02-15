@@ -279,3 +279,45 @@ So when the redirect goes through, we need to make sure there is a configured ro
 
 Note:
 This is not the advised implementmentation as it needs to be done on every component, and has needless overhead.
+
+
+
+---Layout Routes:---
+Sometimes we want to group routes with a certain business rule, like only admins or normal users.
+The best approach for this is with layout routes.
+
+
+
+Task 1 - create private route file:
+If we're authenticated we return the router outlet, otherwise force login.
+
+const PrivateRoutes = () => {
+  const { user } = useAuth();
+  console.log("user - ", user);
+  if (user) return <Navigate to="/login" />;
+
+  return <Outlet />;
+};
+
+
+
+Task - update routes:
+Every route we want to protect, needs to be in the child array of the private route.
+{
+        element: <PrivateRoutes />,
+        children: [
+          {
+            path: "/users",
+            element: <UserListPage />,
+            children: [
+              { path: ":id/:name", element: <UserPage /> }, //UserPage only appears on correct link
+            ],
+          },
+          { path: "/users/:id", element: <UserDetailPage /> },
+        ],
+      },
+
+
+result:
+User data is protected behind the authguard. To test we can toggle the useAuth.
+The benefit of the layout route, is we have implemented all this in a single place.

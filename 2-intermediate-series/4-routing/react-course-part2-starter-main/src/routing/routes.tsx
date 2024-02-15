@@ -6,6 +6,7 @@ import UserListPage from "./UserListPage";
 import UserPage from "./userPage";
 import ErrorPage from "./ErrorPage";
 import LoginPage from "./LoginPage";
+import PrivateRoutes from "./privateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -14,18 +15,22 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> }, //index = true, means this homepage.
-
+      { path: "/login", element: <LoginPage /> },
       {
-        path: "/users",
-        element: <UserListPage />,
+        element: <PrivateRoutes />,
         children: [
-          { path: ":id/:name", element: <UserPage /> }, //UserPage only appears on correct link
+          {
+            path: "/users",
+            element: <UserListPage />,
+            children: [
+              { path: ":id/:name", element: <UserPage /> }, //UserPage only appears on correct link
+            ],
+          },
+          { path: "/users/:id", element: <UserDetailPage /> },
         ],
       },
-      { path: "/users/:id", element: <UserDetailPage /> },
     ],
   },
-  { path: "/login", element: <LoginPage /> },
 ]);
 
 export default router;
