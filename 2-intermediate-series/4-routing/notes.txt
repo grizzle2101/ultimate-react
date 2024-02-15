@@ -321,3 +321,61 @@ Every route we want to protect, needs to be in the child array of the private ro
 result:
 User data is protected behind the authguard. To test we can toggle the useAuth.
 The benefit of the layout route, is we have implemented all this in a single place.
+
+
+
+---Excersie:---
+We want to set up the GameHub project with a route for /games/1 and render a GameDetailsPage component.
+Do not complete the page, just the route setup.
+
+Task 1 - Create component - done
+
+Task 2 - install Router
+npm install react-router-dom@6.10.0
+
+Task 3 - Insert Outlet & router cofnig:
+-update main.tsx
+      <QueryClientProvider client={queryClient}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <RouterProvider router={router} />
+
+-insert outlet in the app.tsx
+    <Grid
+      templateAreas={{
+        base: `"nav" "main"`,
+        lg: `"nav nav" "aside main"`,
+      }}
+      templateColumns={{
+        base: "1fr",
+        lg: "250px 1fr",
+      }}
+    >
+      <GridItem area="nav">
+        <NavBar
+          onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
+        />
+      </GridItem>
+      <Outlet />
+    </Grid>
+
+Task 4 - configure routes:
+-App is the shared layout, all routing starts from there.
+-homepage = index
+-GameDetails route games/:id 
+const router = createBrowserRouter([
+  {
+    path: "",
+    element: <App />, //same as layout
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "/games/:id",
+        element: <GameDetailsPage />,
+      },
+    ],
+  },
+]);
+
