@@ -379,3 +379,12 @@ const router = createBrowserRouter([
   },
 ]);
 
+
+
+
+---Handling Errors:---
+So now we need to handle errors for invalid routes & also application errors.
+
+
+Note:
+to display the error inside the outlet is a little tricky, so in moshes version he just duplicated in the nav bar in the ErrorPage component.

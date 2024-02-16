@@ -18,6 +18,8 @@ export interface GameQuery {
 function App() {
   const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 
+  //throw new Error("test");
+
   return (
     <Grid
       templateAreas={{
