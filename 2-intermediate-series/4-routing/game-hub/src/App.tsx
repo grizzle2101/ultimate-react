@@ -36,7 +36,9 @@ function App() {
           onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         />
       </GridItem>
-      <Outlet />
+      <Box padding={5}>
+        <Outlet />
+      </Box>
     </Grid>
   );
 }
