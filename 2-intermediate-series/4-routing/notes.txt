@@ -401,3 +401,7 @@ there & read the route URL to fetch the game data.
 
 
 ---Excercise - refactoring entities:---
+
+
+---Excercise - expandable text:---
+So we need a button to expand the game text when its too long...
