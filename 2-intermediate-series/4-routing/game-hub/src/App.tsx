@@ -36,9 +36,21 @@ function App() {
           onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         />
       </GridItem>
-      <Box padding={5}>
-        <Outlet />
-      </Box>
+      <Show above="lg">
+        <GridItem area="aside" paddingX={5}>
+          <GenreList
+            selectedGenre={gameQuery.genreId}
+            onSelectGenre={(genre) =>
+              setGameQuery({ ...gameQuery, genreId: genre })
+            }
+          />
+        </GridItem>
+      </Show>
+      <GridItem area="main">
+        <Box padding={5}>
+          <Outlet />
+        </Box>
+      </GridItem>
     </Grid>
   );
 }

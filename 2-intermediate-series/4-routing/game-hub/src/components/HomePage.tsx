@@ -12,38 +12,26 @@ const HomePage = () => {
 
   return (
     <>
-      <Show above="lg">
-        <GridItem area="aside" paddingX={5}>
-          <GenreList
-            selectedGenre={gameQuery.genreId}
-            onSelectGenre={(genre) =>
-              setGameQuery({ ...gameQuery, genreId: genre })
-            }
-          />
-        </GridItem>
-      </Show>
-      <GridItem area="main">
-        <Box paddingLeft={2}>
-          <GameHeading gameQuery={gameQuery} />
-          <Flex marginBottom={5}>
-            <Box marginRight={5}>
-              <PlatformSelector
-                selectedPlatformId={gameQuery.platformId}
-                onSelectPlatform={(platform) =>
-                  setGameQuery({ ...gameQuery, platformId: platform })
-                }
-              />
-            </Box>
-            <SortSelector
-              sortOrder={gameQuery.sortOrder}
-              onSelectSortOrder={(sortOrder) =>
-                setGameQuery({ ...gameQuery, sortOrder })
+      <Box paddingLeft={2}>
+        <GameHeading gameQuery={gameQuery} />
+        <Flex marginBottom={5}>
+          <Box marginRight={5}>
+            <PlatformSelector
+              selectedPlatformId={gameQuery.platformId}
+              onSelectPlatform={(platform) =>
+                setGameQuery({ ...gameQuery, platformId: platform })
               }
             />
-          </Flex>
-        </Box>
-        <GameGrid gameQuery={gameQuery} />
-      </GridItem>
+          </Box>
+          <SortSelector
+            sortOrder={gameQuery.sortOrder}
+            onSelectSortOrder={(sortOrder) =>
+              setGameQuery({ ...gameQuery, sortOrder })
+            }
+          />
+        </Flex>
+      </Box>
+      <GameGrid gameQuery={gameQuery} />
     </>
   );
 };

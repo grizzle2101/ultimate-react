@@ -397,3 +397,7 @@ there & read the route URL to fetch the game data.
 -add onHover for chakra card
 -clcking a card brings you to the page
 -URL is the slug of the game, to be more SEO friendly.
+
+
+
+---Excercise - refactoring entities:---

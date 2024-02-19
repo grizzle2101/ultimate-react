@@ -3,7 +3,8 @@ import ms from "ms";
 import { GameQuery } from "../App";
 import { GAME_CACHE_KEY } from "../constants";
 import { FetchResponse } from "../services/api-client";
-import gameService, { Game } from "../services/game-service";
+import gameService from "../services/game-service";
+import { Game } from "../entities/Game";
 
 const useGames = (gameQuery: GameQuery) => {
   return useInfiniteQuery<FetchResponse<Game>, Error>({

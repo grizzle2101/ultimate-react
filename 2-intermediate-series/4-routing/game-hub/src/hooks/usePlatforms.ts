@@ -3,7 +3,8 @@ import ms from "ms";
 import { PLATFORM_CACHE_KEY } from "../constants";
 import platforms from "../data/platforms";
 import { FetchResponse } from "../services/api-client";
-import platformsService, { Platform } from "../services/platform-service";
+import platformsService from "../services/platform-service";
+import { Platform } from "../entities/Platform";
 
 const usePlatforms = () => {
   return useQuery<FetchResponse<Platform>, Error>({
