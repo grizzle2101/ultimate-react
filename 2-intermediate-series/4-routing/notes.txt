@@ -405,3 +405,8 @@ there & read the route URL to fetch the game data.
 
 ---Excercise - expandable text:---
 So we need a button to expand the game text when its too long...
+
+
+---Excercise - building game attributes:---
+Need to create the 4 sections platforms, metascore, genres & publishers.
+Make a reuseable component to contain a light grey heading, then the content.

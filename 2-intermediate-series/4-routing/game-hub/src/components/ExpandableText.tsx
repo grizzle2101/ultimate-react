@@ -1,36 +1,35 @@
 import { Button, Text } from "@chakra-ui/react";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 
 interface Props {
-  children: ReactNode;
+  children: String;
 }
 
 const ExpandableText = ({ children }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  children = children?.toString();
-
   const displayText = () => {
-    return isExpanded
-      ? children
-      : children?.toString().split("", 200).concat("...");
+    return isExpanded ? children : children?.substring(0, 200).concat("...");
   };
 
   if (!children) return null;
 
   return (
     <>
-      <Text>{displayText()}</Text>
-      <Button
-        size="xs"
-        fontWeight="bold"
-        colorScheme="yellow"
-        onClick={() => {
-          setIsExpanded(!isExpanded);
-        }}
-      >
-        {isExpanded ? "Less" : "More"}
-      </Button>
+      <Text>
+        {displayText()}
+        <Button
+          marginLeft={3}
+          size="xs"
+          fontWeight="bold"
+          colorScheme="yellow"
+          onClick={() => {
+            setIsExpanded(!isExpanded);
+          }}
+        >
+          {isExpanded ? "Less" : "More"}
+        </Button>
+      </Text>
     </>
   );
 };
