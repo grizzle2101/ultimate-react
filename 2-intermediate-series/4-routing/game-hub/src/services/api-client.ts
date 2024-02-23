@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { Game } from "../entities/Game";
+import { Trailer } from "../hooks/useGameTrailers";
 
 export interface FetchResponse<T> {
   count: number;
@@ -27,10 +27,15 @@ class APIClient<T> {
       .then((res) => res.data);
   };
 
-
   getGame = (gameSlug: string) => {
     return axiosInstance
-      .get<T>(this.endpoint + '/' + gameSlug)
+      .get<T>(this.endpoint + "/" + gameSlug)
+      .then((res) => res.data);
+  };
+
+  getGameTrailers = (id: number) => {
+    return axiosInstance
+      .get<FetchResponse<Trailer>>(this.endpoint + "/" + id + "/movies")
       .then((res) => res.data);
   };
 }
