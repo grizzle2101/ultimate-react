@@ -1,24 +1,12 @@
-import { Box, Flex, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
 import { useState } from "react";
-import GameGrid from "./components/GameGrid";
-import GameHeading from "./components/GameHeading";
+import { Outlet } from "react-router-dom";
 import GenreList from "./components/GenreList";
 import NavBar from "./components/NavBar";
-import PlatformSelector from "./components/PlatformSelector";
-import SortSelector from "./components/SortSelector";
-import { Outlet } from "react-router-dom";
-
-export interface GameQuery {
-  genreId: number;
-  platformId: number;
-  sortOrder: string;
-  searchText: string;
-}
+import useGameQueryStore from "./store";
 
 function App() {
-  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
-
-  //throw new Error("test");
+  const { gameQuery, setGenreId } = useGameQueryStore();
 
   return (
     <Grid
@@ -32,17 +20,14 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <NavBar
-          onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
-        />
+        <NavBar />
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
           <GenreList
-            selectedGenre={gameQuery.genreId}
+            selectedGenre={gameQuery.genreId || 0}
             onSelectGenre={(genre) => {
-              console.log(genre);
-              setGameQuery({ ...gameQuery, genreId: genre });
+              setGenreId(genre);
             }}
           />
         </GridItem>
