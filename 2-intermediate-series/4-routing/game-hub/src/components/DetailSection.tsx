@@ -9,10 +9,12 @@ interface Props {
 const DetailSection = ({ heading, children }: Props) => {
   return (
     <>
-      <Heading fontSize={20} textColor={"grey"}>
-        {heading}
-      </Heading>
-      {children}
+      <div>
+        <Heading fontSize={20} textColor={"grey"}>
+          {heading}
+        </Heading>
+        {children}
+      </div>
     </>
   );
 };

@@ -416,3 +416,14 @@ Make a reuseable component to contain a light grey heading, then the content.
 ---Excercise - build a game trailer:---
 So lets build a section to display the game trailer.
 The endpoint games/{id}/movies has all the data needed.
+
+
+
+---Excercise - Game Screenshots:---
+The next thing to add is screenshot grid.
+On medium devices we want a 2 column grid, and 1 column on mobile.
+/games/{games_pk}/screenshots
+
+note:
+to add media queries in charka, bass an object like this.
+columns={{ base: 1, md: 2 }}

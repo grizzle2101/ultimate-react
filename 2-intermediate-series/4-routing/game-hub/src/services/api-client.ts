@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { Trailer } from "../hooks/useGameTrailers";
+import { Screenshot } from "../hooks/useGameScreenshots";
 
 export interface FetchResponse<T> {
   count: number;
@@ -36,6 +37,12 @@ class APIClient<T> {
   getGameTrailers = (id: number) => {
     return axiosInstance
       .get<FetchResponse<Trailer>>(this.endpoint + "/" + id + "/movies")
+      .then((res) => res.data);
+  };
+
+  getGameScreenshots = (id: number) => {
+    return axiosInstance
+      .get<FetchResponse<Screenshot>>(this.endpoint + "/" + id + "/screenshots")
       .then((res) => res.data);
   };
 }

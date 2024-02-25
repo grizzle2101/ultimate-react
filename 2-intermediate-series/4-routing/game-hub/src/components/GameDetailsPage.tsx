@@ -1,10 +1,11 @@
-import { Grid, GridItem, Heading, Spinner, Stack } from "@chakra-ui/react";
+import { Heading, SimpleGrid, Spinner, Stack } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import useGame from "../hooks/useGame";
 import CriticScore from "./CriticScore";
 import DetailSection from "./DetailSection";
 import ExpandableText from "./ExpandableText";
 import GameTrailers from "./GameTrailers";
+import GameScreenshots from "./GameScreenshots";
 
 const GameDetailsPage = () => {
   const { slug } = useParams();
@@ -16,39 +17,35 @@ const GameDetailsPage = () => {
 
   return (
     <>
-      <Stack>
+      <Stack padding={5}>
         <Heading>{data?.name}</Heading>
         <ExpandableText>{data?.description_raw}</ExpandableText>
-        <Grid templateColumns="repeat(2, 2fr)" gap={6}>
-          <GridItem w="100%">
-            <DetailSection heading="Platforms">
-              {data.parent_platforms.map((x) => (
-                <h2 key={x.platform.id}>{x.platform.name}</h2>
-              ))}
-            </DetailSection>
-          </GridItem>
-          <GridItem w="100%">
-            <DetailSection heading="Metascore">
-              <CriticScore score={data.metacritic} />
-            </DetailSection>
-          </GridItem>
-          <GridItem w="100%">
-            <DetailSection heading="Genres">
-              {data.genres.map((x) => (
-                <h2 key={x.name}>{x.name}</h2>
-              ))}
-            </DetailSection>
-          </GridItem>
-          <GridItem w="100%">
-            <DetailSection heading="Publishers">
-              {data.publishers.map((x) => (
-                <h2 key={x.name}>{x.name}</h2>
-              ))}
-            </DetailSection>
-          </GridItem>
-        </Grid>
+        <SimpleGrid columns={2}>
+          <DetailSection heading="Platforms">
+            {data.parent_platforms.map((x) => (
+              <h2 key={x.platform.id}>{x.platform.name}</h2>
+            ))}
+          </DetailSection>
+
+          <DetailSection heading="Metascore">
+            <CriticScore score={data.metacritic} />
+          </DetailSection>
+
+          <DetailSection heading="Genres">
+            {data.genres.map((x) => (
+              <h2 key={x.name}>{x.name}</h2>
+            ))}
+          </DetailSection>
+
+          <DetailSection heading="Publishers">
+            {data.publishers.map((x) => (
+              <h2 key={x.name}>{x.name}</h2>
+            ))}
+          </DetailSection>
+        </SimpleGrid>
       </Stack>
       <GameTrailers id={data.id} />
+      <GameScreenshots id={data.id} />
     </>
   );
 };
