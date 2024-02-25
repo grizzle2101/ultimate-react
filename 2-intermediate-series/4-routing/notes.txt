@@ -427,3 +427,18 @@ On medium devices we want a 2 column grid, and 1 column on mobile.
 note:
 to add media queries in charka, bass an object like this.
 columns={{ base: 1, md: 2 }}
+
+
+---excercise - improving layout:---
+Put the game details in 2 column layout, 1 column for mobile. Same as before.
+
+---excercise - fixing the navbar:---
+For some reason, the version of the probject here didnt have the zustand store. Had to re-implement the zustand store, and remove
+the prop drilling. Navigation & querying works as it should now!
+
+
+
+---excercise - refactoring entities:---
+So another standard practice to use is the default exports.
+If we add default to our interfaces, we no longer need to destructure in the imports
+import {GAME} to import Game. 
